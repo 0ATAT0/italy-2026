@@ -118,11 +118,6 @@
   .stat-label { font-size: 0.75rem; color: var(--text-muted); }
   .stat-desc { font-size: 0.8rem; color: var(--text-dim); margin-top: 2px; }
 
-  .mapcard { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 12px 8px 4px; margin-bottom: 16px; }
-  .mapcard svg { width: 100%; height: auto; display: block; }
-  .mapcard text { font-family: inherit; font-size: 11px; fill: var(--text-dim); font-weight: 500; }
-  .mapcard text.faint { fill: var(--text-muted); font-style: italic; }
-  .mapcard .cap { font-size: 0.75rem; color: var(--text-muted); padding: 8px 10px 10px; }
 
   /* ============ timeline ============ */
   .timeline { position: relative; padding-left: 32px; margin-top: 4px; }
@@ -263,41 +258,7 @@
     </div>
   </div>
 
-  <div class="mapcard">
-    <svg viewBox="0 0 640 430" role="img" aria-label="Map of the Bay of Naples and the Amalfi Coast">
-      <rect x="0" y="0" width="640" height="430" fill="#0d0d0d" rx="12"/>
-      <path d="M 8 84 C 60 60, 118 58, 152 78 C 186 98, 178 128, 208 146 C 238 164, 268 158, 296 176 C 330 198, 322 230, 360 246 C 412 268, 480 258, 530 276 C 574 292, 606 322, 636 316"
-            fill="none" stroke="#333333" stroke-width="2.5"/>
-      <path d="M 8 84 C 60 60, 118 58, 152 78 C 186 98, 178 128, 208 146 C 238 164, 268 158, 296 176 C 330 198, 322 230, 360 246 C 412 268, 480 258, 530 276 C 574 292, 606 322, 636 316 L 640 0 L 0 0 Z"
-            fill="#141414" opacity="0.8"/>
-      <path d="M 236 118 L 258 84 L 266 92 L 274 82 L 296 118 Z" fill="none" stroke="#555555" stroke-width="2"/>
-      <text class="faint" x="266" y="74" text-anchor="middle">Vesuvio</text>
-      <path d="M 96 122 C 160 220, 280 268, 402 300" fill="none" stroke="#ff6b35" stroke-width="1.6" stroke-dasharray="2 7" opacity="0.9"/>
-      <path d="M 100 100 C 160 118, 220 136, 286 150" fill="none" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="6 4" opacity="0.7"/>
-      <g id="mNap" style="cursor:pointer">
-        <circle cx="96" cy="104" r="6" fill="#ff6b35"/>
-        <text x="110" y="100" font-weight="600" fill="#ffffff">Naples</text>
-        <text x="110" y="114">Fri – Sun</text>
-      </g>
-      <g id="mErc" style="cursor:pointer"><circle cx="210" cy="132" r="4.5" fill="#fbbf24"/><text x="200" y="152">Herculaneum</text></g>
-      <g id="mPom" style="cursor:pointer"><circle cx="286" cy="150" r="4.5" fill="#fbbf24"/><text x="298" y="146">Pompeii</text></g>
-      <g><circle cx="330" cy="242" r="4" fill="#555555"/><text x="318" y="230">Sorrento</text></g>
-      <g id="mPos" style="cursor:pointer">
-        <circle cx="402" cy="300" r="6" fill="#ff6b35"/>
-        <text x="416" y="296" font-weight="600" fill="#ffffff">Positano</text>
-        <text x="416" y="310">Sun 9 – Sat 15</text>
-      </g>
-      <g id="mGal" style="cursor:pointer">
-        <circle cx="384" cy="352" r="3" fill="#fbbf24"/><circle cx="396" cy="358" r="2.4" fill="#fbbf24"/><circle cx="406" cy="352" r="2" fill="#fbbf24"/>
-        <text class="faint" x="396" y="378" text-anchor="middle">Li Galli — the Sirens</text>
-      </g>
-      <g><path d="M 232 330 C 244 322, 264 322, 276 330 C 264 340, 244 340, 232 330 Z" fill="none" stroke="#555555" stroke-width="1.8"/><text class="faint" x="254" y="356" text-anchor="middle">Capri</text></g>
-      <text class="faint" x="60" y="392" opacity="0.7">Tyrrhenian Sea</text>
-    </svg>
-    <div class="cap">🟡 Saturday's train to the buried cities · 🟠 Sunday's ferry, quay to beach. Tap a pin.</div>
-  </div>
-
-  <div class="quick-stat">
+    <div class="quick-stat">
     <div class="h-row"><h3>✅ Booking board</h3><button id="clearTicks" type="button">reset</button></div>
     <div id="tasks">
       <label class="task"><input type="checkbox" data-k="ret"><span><span class="tt">Return travel, Sat 15 Aug — decide ferry vs van, book same day</span><br><span class="td">Ferragosto. Highest-risk gap in the plan. Needs headcount + luggage count.</span></span></label>
@@ -859,13 +820,6 @@
   }
   dayBtns.forEach(function (b) { b.addEventListener('click', function () { showDay(b.dataset.d); }); });
 
-  // map pins jump to days
-  function pin(id, day) {
-    var el = document.getElementById(id);
-    if (el) el.addEventListener('click', function () { showView('v-days'); showDay(day); });
-  }
-  pin('mNap', 'd-fri'); pin('mPom', 'd-sat'); pin('mErc', 'd-sat');
-  pin('mPos', 'd-sun'); pin('mGal', 'd-week');
 
   // ---------- expandable cards (Rome mechanic) ----------
   document.addEventListener('click', function (e) {

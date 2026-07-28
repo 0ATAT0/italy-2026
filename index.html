@@ -145,11 +145,23 @@
 
   .activity-card {
     background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; cursor: pointer;
+  }
+  .activity-card:active { transform: scale(0.98); }
+  .activity-card.expanded { background: rgba(18, 18, 18, 1); border-color: var(--accent); }
+  .expand-icon { position: absolute; top: 12px; right: 14px; color: var(--text-muted); font-size: 1.25rem; transition: transform 0.3s ease; }
+  .activity-card.expanded .expand-icon { transform: rotate(180deg); }
+  .activity-details {
+    max-height: 0; overflow: hidden; opacity: 0; transform: translateY(-10px);
+    transition: max-height 0.2s ease-out, opacity 0.15s ease-out, transform 0.15s ease-out;
+  }
+  .activity-card.expanded .activity-details {
+    max-height: 2000px; opacity: 1; transform: translateY(0); margin-top: 12px;
+    transition: max-height 0.35s ease-out, opacity 0.25s ease-out, transform 0.25s ease-out;
   }
   .titem.now .activity-card { border-color: rgba(74, 222, 128, 0.5); }
-  .activity-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
-  .activity-meta { display: flex; flex-wrap: wrap; gap: 8px 12px; font-size: 0.875rem; color: var(--text-dim); margin-bottom: 10px; }
+  .activity-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; padding-right: 26px; }
+  .activity-meta { display: flex; flex-wrap: wrap; gap: 8px 12px; font-size: 0.875rem; color: var(--text-dim); }
   .meta-item { display: flex; align-items: center; gap: 4px; }
   .price-badge { background: rgba(255, 107, 53, 0.2); color: var(--accent); padding: 2px 8px; border-radius: 6px; font-weight: 600; }
   .activity-description { color: var(--text-dim); line-height: 1.6; font-size: 0.95rem; margin-bottom: 8px; }
@@ -186,14 +198,14 @@
   .daybar { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 0 -20px 18px; padding: 2px 20px 8px; }
   .daybar::-webkit-scrollbar { display: none; }
   .daybar button {
-    flex: 0 0 auto; font-family: inherit; background: transparent; color: var(--text-dim);
+    flex: 1; min-width: 0; font-family: inherit; background: transparent; color: var(--text-dim);
     border: 1px solid var(--border); border-radius: 12px; font-size: 0.875rem; font-weight: 600;
-    padding: 9px 16px; cursor: pointer; transition: all 0.3s ease;
+    padding: 9px 4px; cursor: pointer; transition: all 0.3s ease; white-space: nowrap; text-align: center;
   }
   .daybar button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
   .daybar button:active { transform: scale(0.95); }
   .day { display: none; }
-  .day.on { display: block; animation: fadeIn 0.4s ease-out; }
+  .day.on { display: block; }
 
   /* ============ guide cards ============ */
   .essential-card {
@@ -335,7 +347,10 @@
         <div class="activity-card">
           <div class="activity-title">✈️ Land at Capodichino</div>
           <div class="activity-meta"><span class="meta-item">🚕 ~25 min to centro</span><span class="price-badge">fixed tariff</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Official white taxi from the rank; ask for the <b>tariffa predeterminata</b> — the fixed fare to the centro storico, posted in the cab. Agree it before moving. Ignore anyone offering a car inside the terminal. Alibus shuttle runs to Garibaldi and the port every ~20 min if the rank queue is grim.</p>
+          </div>
         </div>
       </div>
 
@@ -344,11 +359,14 @@
         <div class="activity-card">
           <div class="activity-title">🍕 Palazzo Petrucci Pizzeria <span class="status book">book now</span></div>
           <div class="activity-meta"><span class="meta-item">📍 Piazza San Domenico Maggiore</span><span class="meta-item">⭐ 4.2 · 2,180</span><span class="price-badge">~€14 a pizza</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Friday's table. Davide Ruotolo went from 22nd to <b>3rd in Italy</b> in 50 Top Pizza 2026 — the year's upstart story, on the old centre's most beautiful piazza. One of the few pizzerias in Naples that properly takes bookings.</p>
           <div class="tip">💡 Reserve this week; recheck their Instagram for August hours a few days out.</div>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.thefork.it/ristorante/palazzo-petrucci-pizzeria-r699885">Book · TheFork</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Palazzo+Petrucci+Pizzeria+Naples">Directions</a>
+          </div>
           </div>
         </div>
       </div>
@@ -358,10 +376,13 @@
         <div class="activity-card">
           <div class="activity-title">🍕 10 Diego Vitagliano, Santa Lucia</div>
           <div class="activity-meta"><span class="meta-item">📍 Via Santa Lucia 78</span><span class="meta-item">⭐ 4.4 · 2,014</span><span class="price-badge">€10–16</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">The bigger name — #2 in Italy 2025, former world #1, featherweight canotto dough. Short cab; books online.</p>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.diegovitagliano.it/">Book online</a>
             <a class="btn btn-secondary" href="tel:+390811822060">Call</a>
+          </div>
           </div>
         </div>
       </div>
@@ -371,10 +392,13 @@
         <div class="activity-card">
           <div class="activity-title">🍷 Wine to finish</div>
           <div class="activity-meta"><span class="meta-item">🚶 walkable from dinner</span><span class="price-badge">€5–9 a glass</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description"><b>Puteca</b> — the natural-wine room on Gradoni di Chiaia, small and serious.<br><b>Piazza Bellini</b> — tables around the excavated Greek walls of Neapolis; the Odyssey thread opens on night one.<br><b>Vinarium</b> — twenty years the neighbourhood enoteca.</p>
           <div class="action-buttons">
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Puteca+Gradoni+di+Chiaia+Naples">Puteca</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Piazza+Bellini+Naples">Bellini</a>
+          </div>
           </div>
         </div>
       </div>
@@ -395,10 +419,13 @@
         <div class="activity-card">
           <div class="activity-title">🚆 Train from Garibaldi</div>
           <div class="activity-meta"><span class="meta-item">⏱️ ~40 min</span><span class="meta-item">📍 to Pompei Scavi</span><span class="price-badge">€3–6 pp</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Circumvesuviana toward Sorrento — or the <b>Campania Express</b>, same line with guaranteed seats and AC (~€6). Bags front, phones zipped; this line is the region's pickpocket derby.</p>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.campaniaexpress.com/">Express tickets</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Napoli+Porta+Nolana+Circumvesuviana">Station</a>
+          </div>
           </div>
         </div>
       </div>
@@ -408,12 +435,15 @@
         <div class="activity-card">
           <div class="activity-title">🏛️ Pompeii <span class="status book">book now</span></div>
           <div class="activity-meta"><span class="meta-item">⏱️ 3.5 hours</span><span class="meta-item">🎫 timed, named tickets</span><span class="price-badge">€20–30 pp</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Vivaticket is the official platform; names checked against ID at the gate; 20,000-a-day cap and August Saturday mornings sell out — book the 9:00 entry now.</p>
           <p class="activity-description"><b>The route</b> (info-board-light): Forum → Stabian Baths → Lupanar → <b>House of the Vettii</b> → Via dell'Abbondanza → Garden of the Fugitives casts → amphitheatre if legs allow → <b>Villa of the Mysteries</b> last — by the exit toward the station, and its dining room is the best painted space in the Roman world.</p>
           <div class="tip">💡 Fountains through the site refill bottles. Infopoint +39 081 8575 347.</div>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.vivaticket.com/en/tour/pompeii/2895">Tickets · Vivaticket</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://pompeiisites.org/en/">Official site</a>
+          </div>
           </div>
         </div>
       </div>
@@ -423,10 +453,13 @@
         <div class="activity-card">
           <div class="activity-title">🍝 Lunch in Ercolano</div>
           <div class="activity-meta"><span class="meta-item">🚆 one stop back</span><span class="price-badge">€15–25 pp</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description"><b>Viva Lo Re</b> — osteria with a serious wine wall on Corso Resina, the Bourbon "Golden Mile", ten minutes from the ruins. Exactly the tiny-place-in-nowhere Italy does best. Faster: <b>Luna Caprese</b>, family pizzeria by the station.</p>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Viva+Lo+Re+Ercolano">Viva Lo Re</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Luna+Caprese+Ercolano">Luna Caprese</a>
+          </div>
           </div>
         </div>
       </div>
@@ -436,10 +469,13 @@
         <div class="activity-card">
           <div class="activity-title">🏛️ Herculaneum <span class="status book">book now</span></div>
           <div class="activity-meta"><span class="meta-item">⏱️ ~2 hours</span><span class="price-badge">€16 pp</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">A quarter Pompeii's size, twice the preservation — the surge carbonised wood instead of crushing it, so you walk two-storey houses with beams, doors, furniture. See the <b>Neptune and Amphitrite mosaic</b>, the Samnite House, and the <b>boathouses</b> where three hundred skeletons were found mid-escape. Plenty rate it above Pompeii; you'll argue both sides at dinner.</p>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://ercolano.beniculturali.it/">Tickets · official</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Herculaneum+archaeological+park+entrance">Directions</a>
+          </div>
           </div>
         </div>
       </div>
@@ -449,7 +485,10 @@
         <div class="activity-card">
           <div class="activity-title">🥟 Off the train: La Masardona</div>
           <div class="activity-meta"><span class="meta-item">📍 by the Garibaldi terminus</span><span class="meta-item">⭐ 4.7</span><span class="price-badge">€4–8</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">The pizza fritta institution since 1945 — highest-rated pizza in the city, and the other native form. Evening queues are short. Skip if lunch ran long; dinner deserves the appetite.</p>
+          </div>
         </div>
       </div>
 
@@ -458,11 +497,14 @@
         <div class="activity-card">
           <div class="activity-title">🏺 MANN — the third buried city</div>
           <div class="activity-meta"><span class="meta-item">⏱️ ~1.5 hours</span><span class="meta-item">🚇 metro or 15-min cab</span><span class="price-badge">~€20 pp</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Everything great was <b>removed</b> from the sites, and it is all here: the Alexander Mosaic, the Farnese Hercules and Bull, the Villa of the Papyri bronzes, the Secret Cabinet. Ninety minutes closes the loop on the whole day.</p>
           <div class="tip">💡 Confirm evening closing at booking — if it shuts before 19:00 this swaps with Sansevero below.</div>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://mann-napoli.it/">Official site</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Museo+Archeologico+Nazionale+Napoli">Directions</a>
+          </div>
           </div>
         </div>
       </div>
@@ -472,10 +514,13 @@
         <div class="activity-card">
           <div class="activity-title">⛪ The Veiled Christ <span class="status book">book now</span></div>
           <div class="activity-meta"><span class="meta-item">📍 Cappella Sansevero</span><span class="meta-item">⏱️ 30 min</span><span class="price-badge">€8 pp</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Sammartino's Christ under a marble veil your eyes will refuse to accept is stone, in an alchemist prince's chapel, anatomical machines in the crypt. Timed entry, <b>no walk-ups</b>. Five minutes from Petrucci's piazza.</p>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.museosansevero.it/">Book · official</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Cappella+Sansevero+Naples">Directions</a>
+          </div>
           </div>
         </div>
       </div>
@@ -485,7 +530,10 @@
         <div class="activity-card">
           <div class="activity-title">🛍️ Spaccanapoli stroll — her shops</div>
           <div class="activity-meta"><span class="meta-item">🚶 all inside the Greek grid</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">The presepi carvers of <b>San Gregorio Armeno</b> (Ferrigno, since 1836 — Maradona next to the Madonna), <b>Casa Cometa</b>'s ceramics and ex-votos, the luthiers of Via San Sebastiano. Workshops keep summer-evening hours. Full list under Shops.</p>
+          </div>
         </div>
       </div>
 
@@ -494,7 +542,10 @@
         <div class="activity-card">
           <div class="activity-title">🥂 Aperitivo on the Greek walls</div>
           <div class="activity-meta"><span class="meta-item">📍 Piazza Bellini</span><span class="price-badge">€5–8 a spritz</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Drinks over the 4th-century-BC walls of Neapolis. Scruffier: the €2-spritz chaos around <b>Cammarota</b> in the Quartieri Spagnoli, ten minutes west.</p>
+          </div>
         </div>
       </div>
 
@@ -503,10 +554,13 @@
         <div class="activity-card">
           <div class="activity-title">🍕 Da Attilio <span class="status decide">walk-in</span></div>
           <div class="activity-meta"><span class="meta-item">📍 Via Pignasecca 17 · since 1938</span><span class="meta-item">⭐ 4.5 · 5,909</span><span class="price-badge">€8–14</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">The classic without the cruise ships — Attilio Bachetti third-generation at the oven, star-crusted ricotta pies, market-quarter room. No bookings; the queue moves and is part of the night. Apocalyptic? <b>Nennella</b> (4.5⭐, since 1930, rowdy) is eight minutes away.</p>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Pizzeria+Da+Attilio+Pignasecca+Naples">Directions</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Trattoria+Nennella+Naples">Nennella</a>
+          </div>
           </div>
         </div>
       </div>
@@ -526,8 +580,11 @@
         <div class="activity-card">
           <div class="activity-title">☕ Gran Caffè Gambrinus</div>
           <div class="activity-meta"><span class="meta-item">📍 Piazza Trieste e Trento · since 1860</span><span class="price-badge">€5–10</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Sfogliatella riccia and an espresso standing at the marble bar where the Kingdom of the Two Sicilies took its coffee. Ten minutes' walk to the port. The correct last act in Naples.</p>
           <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Gran+Caffe+Gambrinus+Naples">Directions</a></div>
+          </div>
         </div>
       </div>
 
@@ -536,9 +593,12 @@
         <div class="activity-card">
           <div class="activity-title">⛴️ Ferry to Positano <span class="status booked">booked ✅</span></div>
           <div class="activity-meta"><span class="meta-item">⏱️ ~1 h 20–35</span><span class="price-badge">~€32–34 pp</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Sit the right side going out — Vesuvius first, then Capri. The dock in Positano <b>is Spiaggia Grande</b>: you step off the boat onto the beach where lunch is.</p>
           <div class="tip">💡 Boarding is by name — ticket email handy. Rough-sea cancellations are rare but real; if the morning looks wild the fallback is train to Sorrento + bus, so start early regardless.</div>
           <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Molo+Beverello+Naples">Molo Beverello</a></div>
+          </div>
         </div>
       </div>
 
@@ -547,7 +607,10 @@
         <div class="activity-card">
           <div class="activity-title">🧳 Arrive Positano</div>
           <div class="activity-meta"><span class="meta-item">📍 Spiaggia Grande</span><span class="price-badge">porters ~€6/bag cash</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Hotels up the hill are unreachable by car — porters wait near the dock and the pharmacy, or drop bags with the hotel and stay at the beach.</p>
+          </div>
         </div>
       </div>
 
@@ -556,7 +619,10 @@
         <div class="activity-card">
           <div class="activity-title">🏖️ Beach lunch with the family</div>
           <div class="activity-meta"><span class="meta-item">📍 Spiaggia Grande</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">The islets on the horizon are <b>Li Galli — the Sirens' islands of the Odyssey</b>. Capri beyond, from which Tiberius ran the empire. Yesterday's eruption buried a villa under the church behind you. Table trivia under the Odyssey tab.</p>
+          </div>
         </div>
       </div>
 
@@ -575,8 +641,11 @@
         <div class="activity-card">
           <div class="activity-title">🏖️ Fornillo morning</div>
           <div class="activity-meta"><span class="meta-item">🚶 10-min cliff path west</span><span class="price-badge">loungers €15–25</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">The quieter, more local beach — calmer water, better prices, none of the day-tripper churn. Lunch barefoot at a kiosk there, or walk back for a proper table.</p>
           <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Spiaggia+di+Fornillo+Positano">Fornillo path</a></div>
+          </div>
         </div>
       </div>
 
@@ -585,10 +654,13 @@
         <div class="activity-card">
           <div class="activity-title">🏛️ The villa under the church</div>
           <div class="activity-meta"><span class="meta-item">📍 MAR Positano</span><span class="meta-item">⏱️ ~30 min guided</span><span class="meta-item">🕘 open to 21:00</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Beneath Santa Maria Assunta's dome: a maritime villa buried under eleven metres of ash by the <b>same eruption as Pompeii</b>, found in 2003. A glass walkway crosses the frescoed dining room, archaeologist guiding. Ticket office in the Luca Vespoli tourist office at the foot of the church steps — it fits after the beach.</p>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://marpositano.it/web/en/">MAR official</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=MAR+Positano+Villa+Romana">Directions</a>
+          </div>
           </div>
         </div>
       </div>
@@ -598,10 +670,13 @@
         <div class="activity-card">
           <div class="activity-title">⛵ Sunset among the Sirens <span class="status decide">book in town</span></div>
           <div class="activity-meta"><span class="meta-item">📍 Li Galli · 15–20 min out</span><span class="meta-item">🌅 sunset ~20:00</span><span class="price-badge">from ~€60–80 pp</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Boats circle Li Galli — landing forbidden, privately owned, Nureyev the last owner — with a swim stop in the Sirens' water and prosecco for golden hour. The best Odyssey moment on offer in 2026.</p>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.lucibello.it/en/sunset-experience-from-positano-to-li-galli-island">Lucibello sunset</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Lucibello+boat+rental+Positano">Boat office</a>
+          </div>
           </div>
         </div>
       </div>
@@ -610,10 +685,13 @@
         <div class="ttime">WITH THE FAMILY · ANY DAY</div>
         <div class="activity-card">
           <div class="activity-title">🍋 Week ideas</div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description"><b>Path of the Gods</b> — Bomerano → Nocelle at 8:00 before the heat; lemon granita in Nocelle, 1,700 steps home.<br><b>Amalfi + Ravello</b> by ferry — the cathedral, then the bus up to Villa Rufolo's terraces.<br><b>Capri</b> — better by small private boat than the packed ferry-and-funicular circuit in August.<br><b>Da Adolfo</b> — boat-access beach shack at Laurito; mozzarella grilled on lemon leaves; book days ahead.</p>
           <div class="action-buttons">
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Da+Adolfo+Positano">Da Adolfo</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sentiero+degli+Dei+Bomerano">Path of the Gods</a>
+          </div>
           </div>
         </div>
       </div>
@@ -634,7 +712,10 @@
         <div class="activity-card">
           <div class="activity-title">⛴️ Ferry + taxi <span class="status decide">decide</span></div>
           <div class="activity-meta"><span class="meta-item">🕧 dep ~12:30 · port ~13:50 · NAP ~14:30</span><span class="price-badge">~€31 pp + taxi</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Lucibello ~12:30 (or NLG ~10:55) to Beverello, then 25–35 min to the airport — city-side traffic is normal; the chaos lives on the coast road. Lands ~5 hours before the flight: dull, bulletproof. <b>Not</b> the last sailings (~15:40/16:24): a cancellation there leaves no road fallback that makes 19:40.</p>
+          </div>
         </div>
       </div>
 
@@ -643,14 +724,20 @@
         <div class="activity-card">
           <div class="activity-title">🚐 Private van, whole group <span class="status decide">decide</span></div>
           <div class="activity-meta"><span class="meta-item">🕐 leave 13:00–13:30 · budget 3 h+</span><span class="price-badge">~€180–280 the vehicle</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">With more of you going back, one van door-to-door beats per-head tickets and swallows the luggage mountain. Leaving by 13:30 with a 3-hour budget arrives ~16:30 for 19:40 — workable, zero slack for a real jam. Pickup at the ZTL edge (Piazza dei Mulini); porter the bags down. Split option: luggage + volunteers in the van, the impatient on the boat.</p>
+          </div>
         </div>
       </div>
 
       <div class="titem" data-t="call"><div class="tdot"></div>
         <div class="ttime">THE CALL</div>
         <div class="activity-card">
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
           <p class="activity-description">Ferry fails into an afternoon lost at the airport; the van fails into a missed flight. Both clear the bar on paper. Needed: headcount, luggage count, the family's appetite for road risk — then book same day.</p>
+          </div>
         </div>
       </div>
 
@@ -770,7 +857,7 @@
     dayBtns.forEach(function (b) { b.classList.toggle('on', b.dataset.d === id); });
     markNow();
   }
-  dayBtns.forEach(function (b) { b.addEventListener('click', function () { showDay(b.dataset.d); window.scrollTo({ top: 0 }); }); });
+  dayBtns.forEach(function (b) { b.addEventListener('click', function () { showDay(b.dataset.d); }); });
 
   // map pins jump to days
   function pin(id, day) {
@@ -779,6 +866,13 @@
   }
   pin('mNap', 'd-fri'); pin('mPom', 'd-sat'); pin('mErc', 'd-sat');
   pin('mPos', 'd-sun'); pin('mGal', 'd-week');
+
+  // ---------- expandable cards (Rome mechanic) ----------
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('a, button, input, label')) return;
+    var card = e.target.closest('.activity-card');
+    if (card && card.querySelector('.activity-details')) card.classList.toggle('expanded');
+  });
 
   // ---------- clock + countdown ----------
   var DEP = new Date('2026-08-07T19:00:00+02:00');

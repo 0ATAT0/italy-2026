@@ -5,305 +5,288 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0b1b26">
+<meta name="theme-color" content="#000000">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap">
-<title>Naples &amp; Positano · August 2026</title>
+<title>Naples &amp; Positano 2026 🌋</title>
 <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
   :root {
-    --bg: #0b1b26;
-    --bg2: #0e2130;
-    --card: #12283a;
-    --card-line: rgba(157, 180, 189, 0.14);
-    --ink: #edf3f4;
-    --mut: #9db4bd;
-    --dim: #6f8894;
-    --fresco: #d96a52;
-    --fresco-deep: #b34a36;
-    --sea: #6fb0cb;
-    --gold: #d8b46a;
-    --ok: #7fc98f;
-    --rail: rgba(157, 180, 189, 0.22);
-    --pf: "Playfair Display", "Didot", Georgia, serif;
-    --in: "Inter", "Segoe UI", "Helvetica Neue", sans-serif;
-    --st: env(safe-area-inset-top, 0px);
-    --sb: env(safe-area-inset-bottom, 0px);
+    --bg: #000000;
+    --surface: #0a0a0a;
+    --card: rgba(18, 18, 18, 0.95);
+    --accent: #ff6b35;
+    --accent-dim: #cc5528;
+    --text: #ffffff;
+    --text-dim: #999999;
+    --text-muted: #666666;
+    --border: rgba(255, 255, 255, 0.08);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
   }
 
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html { background: var(--bg); }
+  @keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
+  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+
   body {
-    margin: 0; background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-    color: var(--ink); font-family: var(--in); font-size: 15px; line-height: 1.55;
-    -webkit-font-smoothing: antialiased; min-height: 100vh;
-    padding: calc(52px + var(--st)) 0 calc(76px + var(--sb));
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden;
+    padding-top: calc(76px + var(--safe-top));
+    padding-bottom: calc(96px + var(--safe-bottom));
+    line-height: 1.55;
   }
-  a { color: var(--sea); text-decoration: none; }
-  :focus-visible { outline: 2px solid var(--sea); outline-offset: 2px; border-radius: 4px; }
+  a { color: var(--accent); text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
 
-  /* ================= header ================= */
-  .hdr {
-    position: fixed; inset: 0 0 auto 0; z-index: 50;
-    padding: calc(10px + var(--st)) 18px 10px;
-    background: rgba(11, 27, 38, 0.86);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--card-line);
-    display: flex; align-items: baseline; justify-content: space-between;
+  .loading-screen {
+    position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center;
+    justify-content: center; z-index: 9999; animation: fadeOut 0.5s ease-out 1s forwards;
   }
-  .hdr .brand { font-family: var(--pf); font-size: 17px; letter-spacing: 0.01em; }
-  .hdr .brand em { color: var(--fresco); font-style: italic; }
-  .hdr .clk { text-align: right; line-height: 1.25; }
-  .hdr .clk b { display: block; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
-  .hdr .clk span { font-size: 10.5px; color: var(--dim); letter-spacing: 0.04em; }
+  .loading-screen h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, var(--accent), var(--text), var(--accent));
+    background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; animation: shimmer 2s linear infinite;
+  }
 
-  /* ================= bottom nav ================= */
-  .nav {
-    position: fixed; inset: auto 0 0 0; z-index: 50;
-    display: flex; justify-content: space-around;
-    padding: 8px 6px calc(8px + var(--sb));
-    background: rgba(11, 27, 38, 0.92);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-top: 1px solid var(--card-line);
+  /* ============ header ============ */
+  .header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    padding: calc(16px + var(--safe-top)) 20px 14px; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
   }
-  .nav button {
-    appearance: none; background: none; border: 0; cursor: pointer;
-    font-family: var(--in); font-size: 11.5px; font-weight: 600; letter-spacing: 0.02em;
-    color: var(--dim); padding: 7px 10px 5px; border-radius: 8px;
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-  }
-  .nav button svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-  .nav button.on { color: var(--ink); }
-  .nav button.on svg { stroke: var(--fresco); }
+  .header h1 { font-size: 1.25rem; font-weight: 700; }
+  .naples-time { display: flex; flex-direction: column; align-items: flex-end; }
+  .naples-time .time { color: var(--accent); font-weight: 600; font-size: 1rem; font-variant-numeric: tabular-nums; }
+  .naples-time .label { color: var(--text-muted); font-size: 0.75rem; }
 
-  /* ================= views ================= */
-  .view { display: none; max-width: 640px; margin: 0 auto; padding: 8px 18px 30px; }
+  /* ============ tabs ============ */
+  .tabs {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    padding: 12px 16px calc(12px + var(--safe-bottom));
+    display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: 1; min-width: 62px; padding: 10px 8px; background: transparent;
+    border: 1px solid var(--border); border-radius: 12px; color: var(--text-dim);
+    font-family: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; text-align: center;
+    transition: all 0.3s ease;
+  }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tab:active { transform: scale(0.95); }
+
+  /* ============ views ============ */
+  .view { display: none; padding: 20px; max-width: 600px; margin: 0 auto; animation: fadeIn 0.5s ease-out; }
   .view.on { display: block; }
-  @media (prefers-reduced-motion: no-preference) {
-    .view.on .fx { opacity: 0; transform: translateY(14px); animation: rise 0.55s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
-    .view.on .fx:nth-child(2) { animation-delay: 0.05s; } .view.on .fx:nth-child(3) { animation-delay: 0.1s; }
-    .view.on .fx:nth-child(4) { animation-delay: 0.15s; } .view.on .fx:nth-child(5) { animation-delay: 0.2s; }
-    .view.on .fx:nth-child(6) { animation-delay: 0.25s; } .view.on .fx:nth-child(n+7) { animation-delay: 0.3s; }
-    @keyframes rise { to { opacity: 1; transform: none; } }
+  .view.on > * { animation: slideUp 0.5s ease-out backwards; }
+  .view.on > *:nth-child(1) { animation-delay: 0.05s; } .view.on > *:nth-child(2) { animation-delay: 0.1s; }
+  .view.on > *:nth-child(3) { animation-delay: 0.15s; } .view.on > *:nth-child(4) { animation-delay: 0.2s; }
+  .view.on > *:nth-child(n+5) { animation-delay: 0.25s; }
+  @media (prefers-reduced-motion: reduce) { .view.on > *, .loading-screen { animation-duration: 0.01s !important; } }
+
+  .day-title {
+    font-size: 2rem; font-weight: 700; margin-bottom: 6px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   }
+  .day-subtitle { color: var(--text-dim); font-size: 1rem; margin-bottom: 20px; }
+  .kicker { color: var(--accent); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
 
-  /* ================= trip (home) ================= */
-  .count { margin: 26px 0 6px; }
-  .count .n { font-family: var(--pf); font-weight: 500; font-size: 76px; line-height: 0.95; letter-spacing: -0.01em; }
-  .count .n small { font-size: 26px; font-weight: 400; color: var(--mut); margin-left: 8px; letter-spacing: 0; }
-  .count .sub { color: var(--mut); font-size: 14px; margin-top: 10px; max-width: 30em; }
-  .count .sub b { color: var(--ink); font-weight: 600; }
+  /* ============ home ============ */
+  .count-num { font-size: 4.4rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; margin: 8px 0 2px; }
+  .count-num small { font-size: 1.4rem; font-weight: 600; color: var(--text-dim); margin-left: 8px; letter-spacing: 0; }
+  .count-sub { color: var(--text-dim); margin: 8px 0 22px; }
+  .count-sub b { color: var(--text); }
 
-  .meander { height: 8px; margin: 22px 0; max-width: 132px; opacity: 0.5;
-    background: repeating-linear-gradient(90deg, var(--gold) 0 2px, transparent 2px 7px, var(--gold) 7px 9px, transparent 9px 14px); }
-
-  .wx { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0 0; }
-  .wx .w {
-    background: var(--card); border: 1px solid var(--card-line); border-radius: 12px;
-    padding: 12px 14px;
+  .quick-stat {
+    background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border);
   }
-  .wx .w .p { font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--dim); font-weight: 600; }
-  .wx .w .t { font-family: var(--pf); font-size: 26px; margin-top: 3px; }
-  .wx .w .d { font-size: 12px; color: var(--mut); margin-top: 1px; }
+  .quick-stat h3 { color: var(--accent); font-size: 0.875rem; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat-item { background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 12px; border: 1px solid var(--border); }
+  .stat-value { font-size: 1.5rem; font-weight: 700; margin-bottom: 2px; }
+  .stat-label { font-size: 0.75rem; color: var(--text-muted); }
+  .stat-desc { font-size: 0.8rem; color: var(--text-dim); margin-top: 2px; }
 
-  .mapbox { margin: 22px 0 0; background: var(--card); border: 1px solid var(--card-line); border-radius: 14px; padding: 14px 10px 6px; }
-  .mapbox svg { width: 100%; height: auto; display: block; }
-  .mapbox text { font-family: var(--in); font-size: 10.5px; fill: var(--mut); font-weight: 500; }
-  .mapbox text.it { font-family: var(--pf); font-style: italic; fill: var(--dim); font-size: 11px; }
-  .mapbox .cap { font-size: 11px; color: var(--dim); padding: 6px 6px 8px; }
+  .mapcard { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 12px 8px 4px; margin-bottom: 16px; }
+  .mapcard svg { width: 100%; height: auto; display: block; }
+  .mapcard text { font-family: inherit; font-size: 11px; fill: var(--text-dim); font-weight: 500; }
+  .mapcard text.faint { fill: var(--text-muted); font-style: italic; }
+  .mapcard .cap { font-size: 0.75rem; color: var(--text-muted); padding: 8px 10px 10px; }
 
-  .nextup { margin-top: 22px; }
-  .h-line { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 10px; }
-  .h-line h2 { font-family: var(--pf); font-weight: 500; font-size: 21px; margin: 0; }
-  .h-line a, .h-line button { font-size: 12.5px; font-weight: 600; color: var(--sea); background: none; border: 0; cursor: pointer; font-family: var(--in); }
+  /* ============ timeline ============ */
+  .timeline { position: relative; padding-left: 32px; margin-top: 4px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(180deg, var(--accent), transparent); opacity: 0.3;
+  }
+  .titem { position: relative; margin-bottom: 22px; }
+  .tdot {
+    position: absolute; left: -26px; top: 8px; width: 12px; height: 12px;
+    background: var(--card); border: 2px solid var(--text-muted); border-radius: 50%;
+  }
+  .titem.highlight .tdot {
+    width: 16px; height: 16px; left: -28px; top: 6px;
+    background: var(--accent); border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.5); animation: pulse 2s infinite;
+  }
+  .titem.now .tdot { background: var(--success); border-color: var(--success); box-shadow: 0 0 20px rgba(74, 222, 128, 0.5); animation: pulse 2s infinite; }
+  .ttime { font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 6px; letter-spacing: 0.5px; font-variant-numeric: tabular-nums; }
 
-  .task { display: flex; gap: 12px; align-items: flex-start; padding: 11px 2px; border-bottom: 1px solid var(--card-line); cursor: pointer; }
-  .task:last-child { border-bottom: 0; }
-  .task input { margin-top: 3px; width: 17px; height: 17px; accent-color: var(--fresco); flex: none; }
-  .task .tt { font-size: 14px; font-weight: 600; }
-  .task .td { font-size: 12.5px; color: var(--mut); margin-top: 1px; }
-  .task.done .tt { color: var(--dim); text-decoration: line-through; }
-  .task.done .td { color: var(--dim); }
+  .activity-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative;
+  }
+  .titem.now .activity-card { border-color: rgba(74, 222, 128, 0.5); }
+  .activity-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+  .activity-meta { display: flex; flex-wrap: wrap; gap: 8px 12px; font-size: 0.875rem; color: var(--text-dim); margin-bottom: 10px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; }
+  .price-badge { background: rgba(255, 107, 53, 0.2); color: var(--accent); padding: 2px 8px; border-radius: 6px; font-weight: 600; }
+  .activity-description { color: var(--text-dim); line-height: 1.6; font-size: 0.95rem; margin-bottom: 8px; }
+  .activity-description:last-child { margin-bottom: 0; }
+  .activity-description strong, .activity-description b { color: var(--text); }
 
-  /* ================= itinerary ================= */
-  .daybar { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 6px -18px 4px; padding: 4px 18px 10px; }
+  .tip {
+    background: rgba(255, 107, 53, 0.1); border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 12px; padding: 12px; margin: 12px 0; font-size: 0.875rem; color: var(--accent);
+  }
+  .action-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .btn {
+    flex: 1; min-width: 110px; padding: 12px 16px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+    text-align: center; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; display: inline-block;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:active { background: var(--accent-dim); transform: scale(0.98); }
+  .btn-secondary { background: rgba(255, 255, 255, 0.1); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:active { background: rgba(255, 255, 255, 0.15); transform: scale(0.98); }
+
+  .status { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; border-radius: 6px; padding: 3px 8px; margin-left: 8px; vertical-align: 2px; }
+  .status.book { background: rgba(255, 107, 53, 0.2); color: var(--accent); }
+  .status.booked { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+  .status.decide { background: rgba(251, 191, 36, 0.15); color: var(--warning); }
+
+  .booking-reminder {
+    background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 12px; padding: 16px; margin: 0 0 20px;
+  }
+  .booking-reminder h4 { color: var(--warning); margin-bottom: 6px; font-size: 0.95rem; }
+  .booking-reminder p { color: var(--text-dim); font-size: 0.875rem; }
+
+  /* ============ day pills ============ */
+  .daybar { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 0 -20px 18px; padding: 2px 20px 8px; }
   .daybar::-webkit-scrollbar { display: none; }
   .daybar button {
-    flex: 0 0 auto; appearance: none; cursor: pointer; font-family: var(--in);
-    background: var(--card); color: var(--mut); border: 1px solid var(--card-line);
-    border-radius: 20px; font-size: 12.5px; font-weight: 600; padding: 7px 14px;
+    flex: 0 0 auto; font-family: inherit; background: transparent; color: var(--text-dim);
+    border: 1px solid var(--border); border-radius: 12px; font-size: 0.875rem; font-weight: 600;
+    padding: 9px 16px; cursor: pointer; transition: all 0.3s ease;
   }
-  .daybar button.on { background: var(--fresco-deep); border-color: var(--fresco-deep); color: #fff; }
-
+  .daybar button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .daybar button:active { transform: scale(0.95); }
   .day { display: none; }
-  .day.on { display: block; }
+  .day.on { display: block; animation: fadeIn 0.4s ease-out; }
 
-  .dayhd { margin: 14px 0 4px; }
-  .dayhd .kick { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fresco); font-weight: 700; }
-  .dayhd h2 { font-family: var(--pf); font-weight: 500; font-size: 27px; margin: 4px 0 0; line-height: 1.15; text-wrap: balance; }
-  .dayhd .sub { color: var(--mut); font-size: 13.5px; margin-top: 5px; }
-
-  .note {
-    margin: 14px 0 4px; padding: 11px 14px; border-radius: 10px;
-    background: rgba(217, 106, 82, 0.09); border: 1px solid rgba(217, 106, 82, 0.25);
-    font-size: 13px; color: var(--mut);
+  /* ============ guide cards ============ */
+  .essential-card {
+    background: var(--card); border-radius: 16px; padding: 18px 18px 18px 20px; margin-bottom: 14px;
+    border: 1px solid var(--border); position: relative; overflow: hidden;
   }
-  .note b { color: var(--ink); }
+  .essential-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent); }
+  .essential-card h3 { font-size: 1.05rem; margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .essential-card h3 .rate { font-size: 0.82rem; color: var(--accent); font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .essential-card .where { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+  .essential-card p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.6; }
+  .essential-card p strong, .essential-card p b { color: var(--text); }
+  .essential-card .action-buttons { margin-top: 12px; }
+  .essential-card.plain::before { background: var(--text-muted); }
 
-  /* timeline rail */
-  .rail { position: relative; margin-top: 16px; padding-left: 56px; }
-  .rail::before { content: ''; position: absolute; left: 44px; top: 8px; bottom: 8px; width: 1px; background: var(--rail); }
+  /* ============ checklist ============ */
+  .task { display: flex; gap: 12px; align-items: flex-start; padding: 12px 2px; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .task:last-child { border-bottom: 0; }
+  .task input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--accent); flex: none; }
+  .task .tt { font-size: 0.95rem; font-weight: 600; }
+  .task .td { font-size: 0.82rem; color: var(--text-dim); margin-top: 1px; }
+  .task.done .tt { color: var(--text-muted); text-decoration: line-through; }
+  .task.done .td { color: var(--text-muted); }
+  .h-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .h-row button { background: none; border: 0; color: var(--accent); font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
 
-  .ev { position: relative; margin-bottom: 14px; }
-  .ev .tm {
-    position: absolute; left: -56px; top: 14px; width: 38px; text-align: right;
-    font-size: 11.5px; font-weight: 600; color: var(--mut); font-variant-numeric: tabular-nums; letter-spacing: 0.01em;
-  }
-  .ev::before {
-    content: ''; position: absolute; left: -14.5px; top: 19px; width: 6px; height: 6px;
-    border-radius: 50%; background: var(--dim);
-  }
-  .ev.hl::before { background: var(--fresco); box-shadow: 0 0 0 3px rgba(217, 106, 82, 0.2); }
-  .ev.now::before { background: var(--ok); box-shadow: 0 0 0 3px rgba(127, 201, 143, 0.25); }
-
-  .ec {
-    background: var(--card); border: 1px solid var(--card-line); border-radius: 13px;
-    padding: 13px 15px 13px;
-  }
-  .ev.now .ec { border-color: rgba(127, 201, 143, 0.45); }
-  .ec h3 { margin: 0; font-size: 15.5px; font-weight: 650; line-height: 1.35; letter-spacing: -0.005em; }
-  .ec .sub { display: flex; flex-wrap: wrap; gap: 3px 12px; margin: 3px 0 8px; font-size: 12px; color: var(--dim); font-variant-numeric: tabular-nums; }
-  .ec .sub .pr { color: var(--gold); font-weight: 600; }
-  .ec p { margin: 0 0 7px; font-size: 13.5px; color: var(--mut); }
-  .ec p:last-child { margin-bottom: 0; }
-  .ec p b, .ec p strong { color: var(--ink); font-weight: 600; }
-  .ec .tip { background: rgba(216, 180, 106, 0.08); border-left: 2px solid var(--gold); border-radius: 0 8px 8px 0; padding: 8px 11px; font-size: 12.5px; color: var(--mut); margin: 9px 0 7px; }
-  .ec .btns { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
-  .ec .btn {
-    font-size: 12.5px; font-weight: 600; border-radius: 18px; padding: 7px 14px;
-    background: rgba(111, 176, 203, 0.12); color: var(--sea); border: 1px solid rgba(111, 176, 203, 0.25);
-  }
-  .ec .btn.go { background: var(--fresco-deep); border-color: var(--fresco-deep); color: #fff; }
-
-  .chip { display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; border-radius: 4px; padding: 2.5px 7px; margin-left: 8px; vertical-align: 2px; }
-  .chip.bk { background: rgba(217, 106, 82, 0.16); color: var(--fresco); }
-  .chip.ok { background: rgba(127, 201, 143, 0.14); color: var(--ok); }
-  .chip.op { background: rgba(216, 180, 106, 0.13); color: var(--gold); }
-
-  /* ================= guide lists ================= */
-  .lead { color: var(--mut); font-size: 13.5px; margin: 4px 0 16px; max-width: 34em; }
-  .g { background: var(--card); border: 1px solid var(--card-line); border-radius: 13px; padding: 13px 15px; margin-bottom: 10px; }
-  .g.hl { border-left: 2px solid var(--fresco); }
-  .g h3 { margin: 0; font-size: 15px; font-weight: 650; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-  .g h3 .rt { font-size: 12px; color: var(--gold); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .g .sub { font-size: 12px; color: var(--dim); margin: 2px 0 7px; }
-  .g p { margin: 0; font-size: 13.5px; color: var(--mut); }
-  .g p b, .g p strong { color: var(--ink); font-weight: 600; }
-  .g .btns { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
-  .g .btn { font-size: 12.5px; font-weight: 600; border-radius: 18px; padding: 6px 13px; background: rgba(111, 176, 203, 0.12); color: var(--sea); border: 1px solid rgba(111, 176, 203, 0.25); }
-  .g .btn.go { background: var(--fresco-deep); border-color: var(--fresco-deep); color: #fff; }
-
-  .sechd { margin: 26px 0 12px; }
-  .sechd:first-child { margin-top: 14px; }
-  .sechd .kick { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fresco); font-weight: 700; }
-  .sechd h2 { font-family: var(--pf); font-weight: 500; font-size: 25px; margin: 4px 0 0; line-height: 1.15; }
-
-  /* ================= odyssey ================= */
-  .ody-hero { margin: 20px 0 8px; }
-  .ody-hero h2 { font-family: var(--pf); font-weight: 500; font-size: 30px; line-height: 1.15; margin: 0; text-wrap: balance; }
-  .ody-hero h2 em { color: var(--gold); }
-  .ody-hero p { color: var(--mut); font-size: 13.5px; margin: 10px 0 0; }
-  .o { border-left: 2px solid var(--gold); padding: 2px 0 2px 16px; margin: 22px 0; }
-  .o h3 { font-family: var(--pf); font-weight: 500; font-size: 19px; margin: 0 0 7px; }
-  .o p { margin: 0 0 8px; font-size: 13.5px; color: var(--mut); }
-  .o p:last-child { margin-bottom: 0; }
-  .o b, .o strong { color: var(--ink); font-weight: 600; }
-  .o em.q { color: var(--gold); }
-  .o .btn { display: inline-block; margin-top: 4px; font-size: 12.5px; font-weight: 600; border-radius: 18px; padding: 7px 14px; background: var(--fresco-deep); color: #fff; }
-
-  .foot { color: var(--dim); font-size: 11.5px; margin-top: 30px; }
+  .foot { color: var(--text-muted); font-size: 0.75rem; margin-top: 26px; text-align: center; }
 </style>
 </head>
 <body>
 
-<header class="hdr">
-  <span class="brand">Naples <em>&amp;</em> Positano</span>
-  <span class="clk"><b id="clk">--:--</b><span id="clkSub">NAPLES</span></span>
+<div class="loading-screen"><h1>Napoli</h1></div>
+
+<header class="header">
+  <h1>Italy 2026 🌋</h1>
+  <div class="naples-time">
+    <span class="time" id="clk">--:--</span>
+    <span class="label" id="clkSub">Naples Time</span>
+  </div>
 </header>
 
 <!-- ==================== TRIP ==================== -->
 <main class="view on" id="v-trip">
-  <div class="count fx">
-    <div class="n" id="bigCount">—</div>
-    <p class="sub" id="bigSub">Two nights in the old capital of the South, then a week on the coast where Homer put the Sirens.</p>
-  </div>
-  <div class="meander fx" aria-hidden="true"></div>
-
-  <div class="wx fx" id="wx" hidden>
-    <div class="w"><div class="p">Naples</div><div class="t" id="wxN">—</div><div class="d" id="wxNd"></div></div>
-    <div class="w"><div class="p">Positano</div><div class="t" id="wxP">—</div><div class="d" id="wxPd"></div></div>
+  <div>
+    <div class="kicker">7 – 15 August · Naples &amp; the Amalfi Coast</div>
+    <div class="count-num" id="bigCount">—</div>
+    <p class="count-sub" id="bigSub">Two nights in the old capital of the South, then a week on the coast where Homer put the <b>Sirens</b>.</p>
   </div>
 
-  <div class="mapbox fx">
+  <div class="quick-stat" id="wx" hidden>
+    <h3>☀️ Right now</h3>
+    <div class="stat-grid">
+      <div class="stat-item"><div class="stat-value" id="wxN">—</div><div class="stat-label">NAPLES</div><div class="stat-desc" id="wxNd"></div></div>
+      <div class="stat-item"><div class="stat-value" id="wxP">—</div><div class="stat-label">POSITANO</div><div class="stat-desc" id="wxPd"></div></div>
+    </div>
+  </div>
+
+  <div class="mapcard">
     <svg viewBox="0 0 640 430" role="img" aria-label="Map of the Bay of Naples and the Amalfi Coast">
-      <defs>
-        <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#10293c"/><stop offset="1" stop-color="#0d2233"/>
-        </linearGradient>
-      </defs>
-      <rect x="0" y="0" width="640" height="430" fill="url(#seaG)" rx="10"/>
-      <!-- coastline: Naples bay sweeping to Sorrentine peninsula, then Amalfi side -->
+      <rect x="0" y="0" width="640" height="430" fill="#0d0d0d" rx="12"/>
       <path d="M 8 84 C 60 60, 118 58, 152 78 C 186 98, 178 128, 208 146 C 238 164, 268 158, 296 176 C 330 198, 322 230, 360 246 C 412 268, 480 258, 530 276 C 574 292, 606 322, 636 316"
-            fill="none" stroke="#2b4a5e" stroke-width="2.5"/>
+            fill="none" stroke="#333333" stroke-width="2.5"/>
       <path d="M 8 84 C 60 60, 118 58, 152 78 C 186 98, 178 128, 208 146 C 238 164, 268 158, 296 176 C 330 198, 322 230, 360 246 C 412 268, 480 258, 530 276 C 574 292, 606 322, 636 316 L 640 0 L 0 0 Z"
-            fill="#122a3d" opacity="0.55"/>
-      <!-- Vesuvius -->
-      <path d="M 236 118 L 258 84 L 266 92 L 274 82 L 296 118 Z" fill="none" stroke="#4a6a7d" stroke-width="2"/>
-      <text class="it" x="266" y="74" text-anchor="middle">Vesuvio</text>
-      <!-- ferry route -->
-      <path d="M 96 122 C 160 220, 280 268, 402 300" fill="none" stroke="#6fb0cb" stroke-width="1.6" stroke-dasharray="2 7" opacity="0.85"/>
-      <!-- train line -->
-      <path d="M 100 100 C 160 118, 220 136, 286 150" fill="none" stroke="#d8b46a" stroke-width="1.4" stroke-dasharray="6 4" opacity="0.7"/>
-      <!-- places -->
+            fill="#141414" opacity="0.8"/>
+      <path d="M 236 118 L 258 84 L 266 92 L 274 82 L 296 118 Z" fill="none" stroke="#555555" stroke-width="2"/>
+      <text class="faint" x="266" y="74" text-anchor="middle">Vesuvio</text>
+      <path d="M 96 122 C 160 220, 280 268, 402 300" fill="none" stroke="#ff6b35" stroke-width="1.6" stroke-dasharray="2 7" opacity="0.9"/>
+      <path d="M 100 100 C 160 118, 220 136, 286 150" fill="none" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="6 4" opacity="0.7"/>
       <g id="mNap" style="cursor:pointer">
-        <circle cx="96" cy="104" r="6" fill="#d96a52"/>
-        <text x="110" y="100" font-weight="600" fill="#edf3f4">Naples</text>
+        <circle cx="96" cy="104" r="6" fill="#ff6b35"/>
+        <text x="110" y="100" font-weight="600" fill="#ffffff">Naples</text>
         <text x="110" y="114">Fri – Sun</text>
       </g>
-      <g id="mErc" style="cursor:pointer">
-        <circle cx="210" cy="132" r="4.5" fill="#d8b46a"/>
-        <text x="200" y="152">Herculaneum</text>
-      </g>
-      <g id="mPom" style="cursor:pointer">
-        <circle cx="286" cy="150" r="4.5" fill="#d8b46a"/>
-        <text x="298" y="146">Pompeii</text>
-      </g>
-      <g id="mSor">
-        <circle cx="330" cy="242" r="4" fill="#4a6a7d"/>
-        <text x="318" y="230">Sorrento</text>
-      </g>
+      <g id="mErc" style="cursor:pointer"><circle cx="210" cy="132" r="4.5" fill="#fbbf24"/><text x="200" y="152">Herculaneum</text></g>
+      <g id="mPom" style="cursor:pointer"><circle cx="286" cy="150" r="4.5" fill="#fbbf24"/><text x="298" y="146">Pompeii</text></g>
+      <g><circle cx="330" cy="242" r="4" fill="#555555"/><text x="318" y="230">Sorrento</text></g>
       <g id="mPos" style="cursor:pointer">
-        <circle cx="402" cy="300" r="6" fill="#d96a52"/>
-        <text x="416" y="296" font-weight="600" fill="#edf3f4">Positano</text>
+        <circle cx="402" cy="300" r="6" fill="#ff6b35"/>
+        <text x="416" y="296" font-weight="600" fill="#ffffff">Positano</text>
         <text x="416" y="310">Sun 9 – Sat 15</text>
       </g>
       <g id="mGal" style="cursor:pointer">
-        <circle cx="384" cy="352" r="3" fill="#d8b46a"/><circle cx="396" cy="358" r="2.4" fill="#d8b46a"/><circle cx="406" cy="352" r="2" fill="#d8b46a"/>
-        <text class="it" x="396" y="378" text-anchor="middle">Li Galli — the Sirens</text>
+        <circle cx="384" cy="352" r="3" fill="#fbbf24"/><circle cx="396" cy="358" r="2.4" fill="#fbbf24"/><circle cx="406" cy="352" r="2" fill="#fbbf24"/>
+        <text class="faint" x="396" y="378" text-anchor="middle">Li Galli — the Sirens</text>
       </g>
-      <g id="mCap">
-        <path d="M 232 330 C 244 322, 264 322, 276 330 C 264 340, 244 340, 232 330 Z" fill="none" stroke="#4a6a7d" stroke-width="1.8"/>
-        <text class="it" x="254" y="356" text-anchor="middle">Capri</text>
-      </g>
-      <text class="it" x="60" y="392" opacity="0.7">Tyrrhenian Sea</text>
+      <g><path d="M 232 330 C 244 322, 264 322, 276 330 C 264 340, 244 340, 232 330 Z" fill="none" stroke="#555555" stroke-width="1.8"/><text class="faint" x="254" y="356" text-anchor="middle">Capri</text></g>
+      <text class="faint" x="60" y="392" opacity="0.7">Tyrrhenian Sea</text>
     </svg>
-    <div class="cap">Gold dashes — Saturday's train to the buried cities. Blue dots — Sunday's ferry, quay to beach.</div>
+    <div class="cap">🟡 Saturday's train to the buried cities · 🟠 Sunday's ferry, quay to beach. Tap a pin.</div>
   </div>
 
-  <div class="nextup fx">
-    <div class="h-line"><h2>Booking board</h2><button id="clearTicks" type="button">reset</button></div>
+  <div class="quick-stat">
+    <div class="h-row"><h3>✅ Booking board</h3><button id="clearTicks" type="button">reset</button></div>
     <div id="tasks">
       <label class="task"><input type="checkbox" data-k="ret"><span><span class="tt">Return travel, Sat 15 Aug — decide ferry vs van, book same day</span><br><span class="td">Ferragosto. Highest-risk gap in the plan. Needs headcount + luggage count.</span></span></label>
       <label class="task"><input type="checkbox" data-k="pompeii"><span><span class="tt">Pompeii — 09:00 named tickets, Sat 8 Aug</span><br><span class="td">vivaticket.com · names must match passports</span></span></label>
@@ -317,18 +300,20 @@
     </div>
   </div>
 
-  <div class="nextup fx">
-    <div class="h-line"><h2>Field notes</h2></div>
-    <div class="g"><p><b>Heat.</b> Sites 9:00–12:00, AC or sea 12:00–17:00, everything social after dark. Rome logic, hotter pavement.</p></div>
-    <div class="g"><p><b>Cash.</b> €40–60 a day — market stalls, porters, beach kiosks, taxis with "broken" readers. Bancomat ATMs attached to banks.</p></div>
-    <div class="g"><p><b>Taxis.</b> In Naples ask for the <b>tariffa predeterminata</b> — fixed posted fares — or insist on the meter. Positano: cars stop at Piazza dei Mulini; porters (~€6/bag, cash) do the rest.</p></div>
-    <div class="g"><p><b>Trains.</b> The Circumvesuviana is the pickpocket capital of Campania. Bags front, phones zipped. Campania Express when the timetable fits.</p></div>
-    <div class="g"><p><b>Ferragosto week.</b> Coast businesses close or change hours 15–25 Aug. Trust Instagram over Google hours. Emergency number 112; GHIC works in Italy.</p></div>
-    <p class="foot">v3 · prices &amp; hours re-verified at the booking pass · built for two phones in August</p>
+  <div class="quick-stat">
+    <h3>🧭 Field notes</h3>
+    <div class="stat-grid" style="grid-template-columns: 1fr;">
+      <div class="stat-item"><b>🌡️ Heat.</b> <span style="color:var(--text-dim)">Sites 9:00–12:00, AC or sea 12:00–17:00, everything social after dark. Rome logic, hotter pavement.</span></div>
+      <div class="stat-item"><b>💶 Cash.</b> <span style="color:var(--text-dim)">€40–60 a day — stalls, porters, beach kiosks, taxis with "broken" readers. Bancomat ATMs attached to banks.</span></div>
+      <div class="stat-item"><b>🚕 Taxis.</b> <span style="color:var(--text-dim)">In Naples ask for the <b style="color:var(--text)">tariffa predeterminata</b> — fixed posted fares — or insist on the meter. Positano: cars stop at Piazza dei Mulini; porters ~€6/bag, cash.</span></div>
+      <div class="stat-item"><b>🚆 Trains.</b> <span style="color:var(--text-dim)">The Circumvesuviana is the pickpocket capital of Campania. Bags front, phones zipped.</span></div>
+      <div class="stat-item"><b>🇮🇹 Ferragosto.</b> <span style="color:var(--text-dim)">Coast businesses close or shift hours 15–25 Aug — trust Instagram over Google hours. Emergency 112; GHIC works.</span></div>
+    </div>
   </div>
+  <p class="foot">v4 · prices &amp; hours re-verified at the booking pass · made for two phones in August</p>
 </main>
 
-<!-- ==================== ITINERARY ==================== -->
+<!-- ==================== DAYS ==================== -->
 <main class="view" id="v-days">
   <div class="daybar" id="daybar">
     <button data-d="d-fri" class="on">Fri 7</button>
@@ -338,58 +323,58 @@
     <button data-d="d-ret">Sat 15</button>
   </div>
 
-  <!-- ---------- FRIDAY ---------- -->
+  <!-- FRIDAY -->
   <section class="day on" id="d-fri" data-date="2026-08-07">
-    <div class="dayhd fx">
-      <span class="kick">Friday 7 August · Naples</span>
-      <h2>Land, eat, drink</h2>
-      <p class="sub">Wheels down 19:00 — straight into the old city.</p>
-    </div>
-    <div class="rail fx">
+    <div class="kicker">Friday 7 August · Naples</div>
+    <h2 class="day-title">Land, Eat, Drink</h2>
+    <p class="day-subtitle">Wheels down 19:00 — straight into the old city.</p>
+    <div class="timeline">
 
-      <div class="ev" data-t="19:00"><span class="tm">19:00</span>
-        <div class="ec">
-          <h3>Land at Capodichino</h3>
-          <div class="sub"><span>~25 min to centro</span><span class="pr">fixed-tariff taxi</span></div>
-          <p>Official white taxi from the rank; ask for the <b>tariffa predeterminata</b> — the fixed fare to the centro storico, posted in the cab. Agree it before moving. Ignore anyone offering a car inside the terminal.</p>
-          <p>Alibus shuttle runs to Garibaldi and the port every ~20 min if the rank queue is grim.</p>
+      <div class="titem" data-t="19:00"><div class="tdot"></div>
+        <div class="ttime">7:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">✈️ Land at Capodichino</div>
+          <div class="activity-meta"><span class="meta-item">🚕 ~25 min to centro</span><span class="price-badge">fixed tariff</span></div>
+          <p class="activity-description">Official white taxi from the rank; ask for the <b>tariffa predeterminata</b> — the fixed fare to the centro storico, posted in the cab. Agree it before moving. Ignore anyone offering a car inside the terminal. Alibus shuttle runs to Garibaldi and the port every ~20 min if the rank queue is grim.</p>
         </div>
       </div>
 
-      <div class="ev hl" data-t="21:00"><span class="tm">21:00</span>
-        <div class="ec">
-          <h3>Palazzo Petrucci Pizzeria <span class="chip bk">book</span></h3>
-          <div class="sub"><span>Piazza San Domenico Maggiore</span><span>4.2★ · 2,180</span><span class="pr">~€14 a pizza</span></div>
-          <p>Friday's table. Davide Ruotolo went from 22nd to <b>3rd in Italy</b> in 50 Top Pizza 2026 — the year's upstart story, on the old centre's most beautiful piazza. One of the few pizzerias in Naples that properly takes bookings.</p>
-          <div class="tip">Reserve this week; recheck their Instagram for August hours a few days out.</div>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://www.thefork.it/ristorante/palazzo-petrucci-pizzeria-r699885">Book · TheFork</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Palazzo+Petrucci+Pizzeria+Naples">Directions</a>
+      <div class="titem highlight" data-t="21:00"><div class="tdot"></div>
+        <div class="ttime">9:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🍕 Palazzo Petrucci Pizzeria <span class="status book">book now</span></div>
+          <div class="activity-meta"><span class="meta-item">📍 Piazza San Domenico Maggiore</span><span class="meta-item">⭐ 4.2 · 2,180</span><span class="price-badge">~€14 a pizza</span></div>
+          <p class="activity-description">Friday's table. Davide Ruotolo went from 22nd to <b>3rd in Italy</b> in 50 Top Pizza 2026 — the year's upstart story, on the old centre's most beautiful piazza. One of the few pizzerias in Naples that properly takes bookings.</p>
+          <div class="tip">💡 Reserve this week; recheck their Instagram for August hours a few days out.</div>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.thefork.it/ristorante/palazzo-petrucci-pizzeria-r699885">Book · TheFork</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Palazzo+Petrucci+Pizzeria+Naples">Directions</a>
           </div>
         </div>
       </div>
 
-      <div class="ev" data-t="21:00"><span class="tm">alt</span>
-        <div class="ec">
-          <h3>Or: 10 Diego Vitagliano, Santa Lucia</h3>
-          <div class="sub"><span>Via Santa Lucia 78</span><span>4.4★ · 2,014</span><span class="pr">€10–16</span></div>
-          <p>The bigger name — #2 in Italy 2025, former world #1, featherweight canotto dough. Short cab; books online.</p>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://www.diegovitagliano.it/">Book online</a>
-            <a class="btn" href="tel:+390811822060">Call</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=10+Diego+Vitagliano+Pizzeria+Santa+Lucia+Naples">Directions</a>
+      <div class="titem" data-t="21:00"><div class="tdot"></div>
+        <div class="ttime">ALTERNATIVE</div>
+        <div class="activity-card">
+          <div class="activity-title">🍕 10 Diego Vitagliano, Santa Lucia</div>
+          <div class="activity-meta"><span class="meta-item">📍 Via Santa Lucia 78</span><span class="meta-item">⭐ 4.4 · 2,014</span><span class="price-badge">€10–16</span></div>
+          <p class="activity-description">The bigger name — #2 in Italy 2025, former world #1, featherweight canotto dough. Short cab; books online.</p>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.diegovitagliano.it/">Book online</a>
+            <a class="btn btn-secondary" href="tel:+390811822060">Call</a>
           </div>
         </div>
       </div>
 
-      <div class="ev" data-t="22:30"><span class="tm">22:30</span>
-        <div class="ec">
-          <h3>Wine to finish</h3>
-          <div class="sub"><span>walkable from dinner</span><span class="pr">€5–9 a glass</span></div>
-          <p><b>Puteca</b> — the natural-wine room on Gradoni di Chiaia, small and serious. <b>Piazza Bellini</b> — tables around the excavated Greek walls of Neapolis; the Odyssey thread opens on night one. <b>Vinarium</b> — twenty years the neighbourhood enoteca.</p>
-          <div class="btns">
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Puteca+Gradoni+di+Chiaia+Naples">Puteca</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Piazza+Bellini+Naples">Bellini</a>
+      <div class="titem" data-t="22:30"><div class="tdot"></div>
+        <div class="ttime">10:30 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🍷 Wine to finish</div>
+          <div class="activity-meta"><span class="meta-item">🚶 walkable from dinner</span><span class="price-badge">€5–9 a glass</span></div>
+          <p class="activity-description"><b>Puteca</b> — the natural-wine room on Gradoni di Chiaia, small and serious.<br><b>Piazza Bellini</b> — tables around the excavated Greek walls of Neapolis; the Odyssey thread opens on night one.<br><b>Vinarium</b> — twenty years the neighbourhood enoteca.</p>
+          <div class="action-buttons">
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Puteca+Gradoni+di+Chiaia+Naples">Puteca</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Piazza+Bellini+Naples">Bellini</a>
           </div>
         </div>
       </div>
@@ -397,125 +382,131 @@
     </div>
   </section>
 
-  <!-- ---------- SATURDAY ---------- -->
+  <!-- SATURDAY -->
   <section class="day" id="d-sat" data-date="2026-08-08">
-    <div class="dayhd fx">
-      <span class="kick">Saturday 8 August · Pompeii → Herculaneum → Naples</span>
-      <h2>The buried cities</h2>
-      <p class="sub">Two sites, one museum, one veiled Christ, one queue worth joining.</p>
-    </div>
-    <div class="note fx"><b>Heat plan:</b> ruins before 15:30, museum and chapel in the cool, everything social after dark. Hat, water, sunscreen — Pompeii is shadeless and it will pass 33°C.</div>
-    <div class="rail fx">
+    <div class="kicker">Saturday 8 August · Pompeii → Herculaneum → Naples</div>
+    <h2 class="day-title">The Buried Cities</h2>
+    <p class="day-subtitle">Two sites, one museum, one veiled Christ, one queue worth joining.</p>
+    <div class="booking-reminder"><h4>⚠️ Heat plan</h4><p>Ruins before 15:30, museum and chapel in the cool, everything social after dark. Hat, water, sunscreen — Pompeii is shadeless and it will pass 33°C.</p></div>
+    <div class="timeline">
 
-      <div class="ev" data-t="08:15"><span class="tm">08:15</span>
-        <div class="ec">
-          <h3>Train from Garibaldi</h3>
-          <div class="sub"><span>~40 min</span><span>to Pompei Scavi – Villa dei Misteri</span><span class="pr">€3–6 pp</span></div>
-          <p>Circumvesuviana toward Sorrento — or the <b>Campania Express</b>, same line with guaranteed seats and AC (~€6). Bags front, phones zipped; this line is the region's pickpocket derby.</p>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://www.campaniaexpress.com/">Express tickets</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Napoli+Porta+Nolana+Circumvesuviana">Station</a>
+      <div class="titem" data-t="08:15"><div class="tdot"></div>
+        <div class="ttime">8:15 AM</div>
+        <div class="activity-card">
+          <div class="activity-title">🚆 Train from Garibaldi</div>
+          <div class="activity-meta"><span class="meta-item">⏱️ ~40 min</span><span class="meta-item">📍 to Pompei Scavi</span><span class="price-badge">€3–6 pp</span></div>
+          <p class="activity-description">Circumvesuviana toward Sorrento — or the <b>Campania Express</b>, same line with guaranteed seats and AC (~€6). Bags front, phones zipped; this line is the region's pickpocket derby.</p>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.campaniaexpress.com/">Express tickets</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Napoli+Porta+Nolana+Circumvesuviana">Station</a>
           </div>
         </div>
       </div>
 
-      <div class="ev hl" data-t="09:00"><span class="tm">09:00</span>
-        <div class="ec">
-          <h3>Pompeii <span class="chip bk">book</span></h3>
-          <div class="sub"><span>3.5 hrs</span><span>timed, named tickets</span><span class="pr">€20–30 pp</span></div>
-          <p>Vivaticket is the official platform; names checked against ID at the gate; 20,000-a-day cap and August Saturday mornings sell out — book the 9:00 entry now.</p>
-          <p><b>The route</b>, info-board-light: Forum → Stabian Baths → Lupanar → <b>House of the Vettii</b> → Via dell'Abbondanza → Garden of the Fugitives casts → amphitheatre if legs allow → <b>Villa of the Mysteries</b> last — it sits by the exit toward the station, and its dining room is the best painted space in the Roman world.</p>
-          <div class="tip">Fountains through the site refill bottles. Infopoint +39 081 8575 347.</div>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://www.vivaticket.com/en/tour/pompeii/2895">Tickets · Vivaticket</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://pompeiisites.org/en/">Official site</a>
+      <div class="titem highlight" data-t="09:00"><div class="tdot"></div>
+        <div class="ttime">9:00 AM</div>
+        <div class="activity-card">
+          <div class="activity-title">🏛️ Pompeii <span class="status book">book now</span></div>
+          <div class="activity-meta"><span class="meta-item">⏱️ 3.5 hours</span><span class="meta-item">🎫 timed, named tickets</span><span class="price-badge">€20–30 pp</span></div>
+          <p class="activity-description">Vivaticket is the official platform; names checked against ID at the gate; 20,000-a-day cap and August Saturday mornings sell out — book the 9:00 entry now.</p>
+          <p class="activity-description"><b>The route</b> (info-board-light): Forum → Stabian Baths → Lupanar → <b>House of the Vettii</b> → Via dell'Abbondanza → Garden of the Fugitives casts → amphitheatre if legs allow → <b>Villa of the Mysteries</b> last — by the exit toward the station, and its dining room is the best painted space in the Roman world.</p>
+          <div class="tip">💡 Fountains through the site refill bottles. Infopoint +39 081 8575 347.</div>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.vivaticket.com/en/tour/pompeii/2895">Tickets · Vivaticket</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://pompeiisites.org/en/">Official site</a>
           </div>
         </div>
       </div>
 
-      <div class="ev" data-t="13:00"><span class="tm">13:00</span>
-        <div class="ec">
-          <h3>Lunch in Ercolano</h3>
-          <div class="sub"><span>train one stop back</span><span class="pr">€15–25 pp</span></div>
-          <p><b>Viva Lo Re</b> — osteria with a serious wine wall on Corso Resina, the Bourbon "Golden Mile", ten minutes from the ruins. Exactly the tiny-place-in-nowhere Italy does best. Faster: <b>Luna Caprese</b>, family pizzeria by the station.</p>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Viva+Lo+Re+Ercolano">Viva Lo Re</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Luna+Caprese+Ercolano">Luna Caprese</a>
+      <div class="titem" data-t="13:00"><div class="tdot"></div>
+        <div class="ttime">1:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🍝 Lunch in Ercolano</div>
+          <div class="activity-meta"><span class="meta-item">🚆 one stop back</span><span class="price-badge">€15–25 pp</span></div>
+          <p class="activity-description"><b>Viva Lo Re</b> — osteria with a serious wine wall on Corso Resina, the Bourbon "Golden Mile", ten minutes from the ruins. Exactly the tiny-place-in-nowhere Italy does best. Faster: <b>Luna Caprese</b>, family pizzeria by the station.</p>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Viva+Lo+Re+Ercolano">Viva Lo Re</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Luna+Caprese+Ercolano">Luna Caprese</a>
           </div>
         </div>
       </div>
 
-      <div class="ev hl" data-t="14:15"><span class="tm">14:15</span>
-        <div class="ec">
-          <h3>Herculaneum <span class="chip bk">book</span></h3>
-          <div class="sub"><span>~2 hrs</span><span class="pr">€16 pp</span></div>
-          <p>A quarter Pompeii's size, twice the preservation — the surge carbonised wood instead of crushing it, so you walk two-storey houses with beams, doors, furniture. See the <b>Neptune and Amphitrite mosaic</b>, the Samnite House, and the <b>boathouses</b> where three hundred skeletons were found mid-escape. Plenty rate it above Pompeii; you'll argue both sides at dinner.</p>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://ercolano.beniculturali.it/">Tickets · official</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Herculaneum+archaeological+park+entrance">Directions</a>
+      <div class="titem highlight" data-t="14:15"><div class="tdot"></div>
+        <div class="ttime">2:15 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🏛️ Herculaneum <span class="status book">book now</span></div>
+          <div class="activity-meta"><span class="meta-item">⏱️ ~2 hours</span><span class="price-badge">€16 pp</span></div>
+          <p class="activity-description">A quarter Pompeii's size, twice the preservation — the surge carbonised wood instead of crushing it, so you walk two-storey houses with beams, doors, furniture. See the <b>Neptune and Amphitrite mosaic</b>, the Samnite House, and the <b>boathouses</b> where three hundred skeletons were found mid-escape. Plenty rate it above Pompeii; you'll argue both sides at dinner.</p>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://ercolano.beniculturali.it/">Tickets · official</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Herculaneum+archaeological+park+entrance">Directions</a>
           </div>
         </div>
       </div>
 
-      <div class="ev" data-t="16:45"><span class="tm">16:45</span>
-        <div class="ec">
-          <h3>Off the train: La Masardona</h3>
-          <div class="sub"><span>by the Garibaldi terminus</span><span>4.7★</span><span class="pr">€4–8</span></div>
-          <p>The pizza fritta institution since 1945 — highest-rated pizza in the city, and the other native form. Evening queues are short. Skip if lunch ran long; dinner deserves the appetite.</p>
-          <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=La+Masardona+Naples">Directions</a></div>
+      <div class="titem" data-t="16:45"><div class="tdot"></div>
+        <div class="ttime">4:45 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🥟 Off the train: La Masardona</div>
+          <div class="activity-meta"><span class="meta-item">📍 by the Garibaldi terminus</span><span class="meta-item">⭐ 4.7</span><span class="price-badge">€4–8</span></div>
+          <p class="activity-description">The pizza fritta institution since 1945 — highest-rated pizza in the city, and the other native form. Evening queues are short. Skip if lunch ran long; dinner deserves the appetite.</p>
         </div>
       </div>
 
-      <div class="ev" data-t="17:00"><span class="tm">17:00</span>
-        <div class="ec">
-          <h3>MANN — the third buried city</h3>
-          <div class="sub"><span>~1.5 hrs</span><span>metro or 15-min cab</span><span class="pr">~€20 pp</span></div>
-          <p>Everything great was <b>removed</b> from the sites, and it is all here: the Alexander Mosaic, the Farnese Hercules and Bull, the Villa of the Papyri bronzes, the Secret Cabinet. Ninety minutes closes the loop on the whole day.</p>
-          <div class="tip">Confirm evening closing at booking — if it shuts before 19:00 this swaps with Sansevero below.</div>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://mann-napoli.it/">Official site</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Museo+Archeologico+Nazionale+Napoli">Directions</a>
+      <div class="titem" data-t="17:00"><div class="tdot"></div>
+        <div class="ttime">5:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🏺 MANN — the third buried city</div>
+          <div class="activity-meta"><span class="meta-item">⏱️ ~1.5 hours</span><span class="meta-item">🚇 metro or 15-min cab</span><span class="price-badge">~€20 pp</span></div>
+          <p class="activity-description">Everything great was <b>removed</b> from the sites, and it is all here: the Alexander Mosaic, the Farnese Hercules and Bull, the Villa of the Papyri bronzes, the Secret Cabinet. Ninety minutes closes the loop on the whole day.</p>
+          <div class="tip">💡 Confirm evening closing at booking — if it shuts before 19:00 this swaps with Sansevero below.</div>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://mann-napoli.it/">Official site</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Museo+Archeologico+Nazionale+Napoli">Directions</a>
           </div>
         </div>
       </div>
 
-      <div class="ev hl" data-t="18:30"><span class="tm">18:30</span>
-        <div class="ec">
-          <h3>The Veiled Christ <span class="chip bk">book</span></h3>
-          <div class="sub"><span>Cappella Sansevero · 30 min</span><span class="pr">€8 pp</span></div>
-          <p>Sammartino's Christ under a marble veil your eyes will refuse to accept is stone, in an alchemist prince's chapel, anatomical machines in the crypt. Timed entry, <b>no walk-ups</b>. Five minutes from Petrucci's piazza.</p>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://www.museosansevero.it/">Book · official</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Cappella+Sansevero+Naples">Directions</a>
+      <div class="titem highlight" data-t="18:30"><div class="tdot"></div>
+        <div class="ttime">6:30 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">⛪ The Veiled Christ <span class="status book">book now</span></div>
+          <div class="activity-meta"><span class="meta-item">📍 Cappella Sansevero</span><span class="meta-item">⏱️ 30 min</span><span class="price-badge">€8 pp</span></div>
+          <p class="activity-description">Sammartino's Christ under a marble veil your eyes will refuse to accept is stone, in an alchemist prince's chapel, anatomical machines in the crypt. Timed entry, <b>no walk-ups</b>. Five minutes from Petrucci's piazza.</p>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.museosansevero.it/">Book · official</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Cappella+Sansevero+Naples">Directions</a>
           </div>
         </div>
       </div>
 
-      <div class="ev" data-t="19:00"><span class="tm">19:00</span>
-        <div class="ec">
-          <h3>Spaccanapoli stroll — her shops</h3>
-          <div class="sub"><span>all inside the Greek grid</span></div>
-          <p>The presepi carvers of <b>San Gregorio Armeno</b> (Ferrigno, since 1836 — Maradona next to the Madonna), <b>Casa Cometa</b>'s ceramics and ex-votos, the luthiers of Via San Sebastiano. Workshops keep summer-evening hours. Full list under Shops.</p>
-          <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Via+San+Gregorio+Armeno+Naples">San Gregorio Armeno</a></div>
+      <div class="titem" data-t="19:00"><div class="tdot"></div>
+        <div class="ttime">7:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🛍️ Spaccanapoli stroll — her shops</div>
+          <div class="activity-meta"><span class="meta-item">🚶 all inside the Greek grid</span></div>
+          <p class="activity-description">The presepi carvers of <b>San Gregorio Armeno</b> (Ferrigno, since 1836 — Maradona next to the Madonna), <b>Casa Cometa</b>'s ceramics and ex-votos, the luthiers of Via San Sebastiano. Workshops keep summer-evening hours. Full list under Shops.</p>
         </div>
       </div>
 
-      <div class="ev" data-t="20:15"><span class="tm">20:15</span>
-        <div class="ec">
-          <h3>Aperitivo on the Greek walls</h3>
-          <div class="sub"><span>Piazza Bellini</span><span class="pr">€5–8 a spritz</span></div>
-          <p>Drinks over the 4th-century-BC walls of Neapolis. Scruffier: the €2-spritz chaos around <b>Cammarota</b> in the Quartieri Spagnoli, ten minutes west.</p>
+      <div class="titem" data-t="20:15"><div class="tdot"></div>
+        <div class="ttime">8:15 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🥂 Aperitivo on the Greek walls</div>
+          <div class="activity-meta"><span class="meta-item">📍 Piazza Bellini</span><span class="price-badge">€5–8 a spritz</span></div>
+          <p class="activity-description">Drinks over the 4th-century-BC walls of Neapolis. Scruffier: the €2-spritz chaos around <b>Cammarota</b> in the Quartieri Spagnoli, ten minutes west.</p>
         </div>
       </div>
 
-      <div class="ev hl" data-t="21:00"><span class="tm">21:00</span>
-        <div class="ec">
-          <h3>Da Attilio <span class="chip op">walk-in</span></h3>
-          <div class="sub"><span>Via Pignasecca 17 · since 1938</span><span>4.5★ · 5,909</span><span class="pr">€8–14</span></div>
-          <p>The classic without the cruise ships — Attilio Bachetti third-generation at the oven, star-crusted ricotta pies, market-quarter room. No bookings; the queue moves and is part of the night. Apocalyptic? <b>Nennella</b> (4.5★, since 1930, rowdy) is eight minutes away.</p>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Pizzeria+Da+Attilio+Pignasecca+Naples">Directions</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Trattoria+Nennella+Naples">Nennella</a>
+      <div class="titem highlight" data-t="21:00"><div class="tdot"></div>
+        <div class="ttime">9:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🍕 Da Attilio <span class="status decide">walk-in</span></div>
+          <div class="activity-meta"><span class="meta-item">📍 Via Pignasecca 17 · since 1938</span><span class="meta-item">⭐ 4.5 · 5,909</span><span class="price-badge">€8–14</span></div>
+          <p class="activity-description">The classic without the cruise ships — Attilio Bachetti third-generation at the oven, star-crusted ricotta pies, market-quarter room. No bookings; the queue moves and is part of the night. Apocalyptic? <b>Nennella</b> (4.5⭐, since 1930, rowdy) is eight minutes away.</p>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Pizzeria+Da+Attilio+Pignasecca+Naples">Directions</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Trattoria+Nennella+Naples">Nennella</a>
           </div>
         </div>
       </div>
@@ -523,102 +514,106 @@
     </div>
   </section>
 
-  <!-- ---------- SUNDAY ---------- -->
+  <!-- SUNDAY -->
   <section class="day" id="d-sun" data-date="2026-08-09">
-    <div class="dayhd fx">
-      <span class="kick">Sunday 9 August · Naples → Positano</span>
-      <h2>Across the bay</h2>
-      <p class="sub">Ferry booked, 10:00 from Molo Beverello. Quay at 09:30 with bags.</p>
-    </div>
-    <div class="rail fx">
+    <div class="kicker">Sunday 9 August · Naples → Positano</div>
+    <h2 class="day-title">Across the Bay</h2>
+    <p class="day-subtitle">Ferry booked, 10:00 from Molo Beverello. Quay at 09:30 with bags.</p>
+    <div class="timeline">
 
-      <div class="ev" data-t="08:30"><span class="tm">08:30</span>
-        <div class="ec">
-          <h3>Gran Caffè Gambrinus</h3>
-          <div class="sub"><span>Piazza Trieste e Trento · since 1860</span><span class="pr">€5–10</span></div>
-          <p>Sfogliatella riccia and an espresso standing at the marble bar where the Kingdom of the Two Sicilies took its coffee. Ten minutes' walk to the port. The correct last act in Naples.</p>
-          <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Gran+Caffe+Gambrinus+Naples">Directions</a></div>
+      <div class="titem" data-t="08:30"><div class="tdot"></div>
+        <div class="ttime">8:30 AM</div>
+        <div class="activity-card">
+          <div class="activity-title">☕ Gran Caffè Gambrinus</div>
+          <div class="activity-meta"><span class="meta-item">📍 Piazza Trieste e Trento · since 1860</span><span class="price-badge">€5–10</span></div>
+          <p class="activity-description">Sfogliatella riccia and an espresso standing at the marble bar where the Kingdom of the Two Sicilies took its coffee. Ten minutes' walk to the port. The correct last act in Naples.</p>
+          <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Gran+Caffe+Gambrinus+Naples">Directions</a></div>
         </div>
       </div>
 
-      <div class="ev hl" data-t="10:00"><span class="tm">10:00</span>
-        <div class="ec">
-          <h3>Ferry to Positano <span class="chip ok">booked</span></h3>
-          <div class="sub"><span>~1 h 20–35</span><span class="pr">~€32–34 pp</span></div>
-          <p>Sit the right side going out — Vesuvius first, then Capri. The dock in Positano <b>is Spiaggia Grande</b>: you step off the boat onto the beach where lunch is.</p>
-          <div class="tip">Boarding is by name — ticket email handy. Rough-sea cancellations are rare but real; if the morning looks wild, the fallback is train to Sorrento + bus, so start early regardless.</div>
-          <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Molo+Beverello+Naples">Molo Beverello</a></div>
+      <div class="titem highlight" data-t="10:00"><div class="tdot"></div>
+        <div class="ttime">10:00 AM</div>
+        <div class="activity-card">
+          <div class="activity-title">⛴️ Ferry to Positano <span class="status booked">booked ✅</span></div>
+          <div class="activity-meta"><span class="meta-item">⏱️ ~1 h 20–35</span><span class="price-badge">~€32–34 pp</span></div>
+          <p class="activity-description">Sit the right side going out — Vesuvius first, then Capri. The dock in Positano <b>is Spiaggia Grande</b>: you step off the boat onto the beach where lunch is.</p>
+          <div class="tip">💡 Boarding is by name — ticket email handy. Rough-sea cancellations are rare but real; if the morning looks wild the fallback is train to Sorrento + bus, so start early regardless.</div>
+          <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Molo+Beverello+Naples">Molo Beverello</a></div>
         </div>
       </div>
 
-      <div class="ev" data-t="11:30"><span class="tm">11:30</span>
-        <div class="ec">
-          <h3>Arrive Positano</h3>
-          <div class="sub"><span>Spiaggia Grande</span><span class="pr">porters ~€6/bag, cash</span></div>
-          <p>Hotels up the hill are unreachable by car — porters wait near the dock and the pharmacy, or drop bags with the hotel and stay at the beach.</p>
+      <div class="titem" data-t="11:30"><div class="tdot"></div>
+        <div class="ttime">11:30 AM</div>
+        <div class="activity-card">
+          <div class="activity-title">🧳 Arrive Positano</div>
+          <div class="activity-meta"><span class="meta-item">📍 Spiaggia Grande</span><span class="price-badge">porters ~€6/bag cash</span></div>
+          <p class="activity-description">Hotels up the hill are unreachable by car — porters wait near the dock and the pharmacy, or drop bags with the hotel and stay at the beach.</p>
         </div>
       </div>
 
-      <div class="ev hl" data-t="13:00"><span class="tm">13:00</span>
-        <div class="ec">
-          <h3>Beach lunch with the family</h3>
-          <div class="sub"><span>Spiaggia Grande</span></div>
-          <p>The islets on the horizon are <b>Li Galli — the Sirens' islands of the Odyssey</b>. Capri beyond, from which Tiberius ran the empire. Yesterday's eruption buried a villa under the church behind you. Table trivia under the Odyssey tab.</p>
+      <div class="titem highlight" data-t="13:00"><div class="tdot"></div>
+        <div class="ttime">1:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🏖️ Beach lunch with the family</div>
+          <div class="activity-meta"><span class="meta-item">📍 Spiaggia Grande</span></div>
+          <p class="activity-description">The islets on the horizon are <b>Li Galli — the Sirens' islands of the Odyssey</b>. Capri beyond, from which Tiberius ran the empire. Yesterday's eruption buried a villa under the church behind you. Table trivia under the Odyssey tab.</p>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- ---------- WEEK ---------- -->
+  <!-- WEEK -->
   <section class="day" id="d-week" data-date="2026-08-10">
-    <div class="dayhd fx">
-      <span class="kick">9 – 15 August · Positano</span>
-      <h2>The week, and the day that's yours</h2>
-      <p class="sub">Family week — with one day reserved for the two of you.</p>
-    </div>
-    <div class="rail fx">
+    <div class="kicker">9 – 15 August · Positano</div>
+    <h2 class="day-title">The Positano Week</h2>
+    <p class="day-subtitle">Family week — with one day reserved for the two of you.</p>
+    <div class="timeline">
 
-      <div class="ev" data-t="AM"><span class="tm">AM</span>
-        <div class="ec">
-          <h3>Your day — Fornillo morning</h3>
-          <div class="sub"><span>10-min cliff path west</span><span class="pr">loungers €15–25</span></div>
-          <p>The quieter, more local beach — calmer water, better prices, none of the day-tripper churn. Lunch barefoot at a kiosk there, or walk back for a proper table.</p>
-          <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Spiaggia+di+Fornillo+Positano">Fornillo path</a></div>
+      <div class="titem" data-t="AM"><div class="tdot"></div>
+        <div class="ttime">YOUR DAY · MORNING</div>
+        <div class="activity-card">
+          <div class="activity-title">🏖️ Fornillo morning</div>
+          <div class="activity-meta"><span class="meta-item">🚶 10-min cliff path west</span><span class="price-badge">loungers €15–25</span></div>
+          <p class="activity-description">The quieter, more local beach — calmer water, better prices, none of the day-tripper churn. Lunch barefoot at a kiosk there, or walk back for a proper table.</p>
+          <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Spiaggia+di+Fornillo+Positano">Fornillo path</a></div>
         </div>
       </div>
 
-      <div class="ev hl" data-t="PM"><span class="tm">PM</span>
-        <div class="ec">
-          <h3>The villa under the church</h3>
-          <div class="sub"><span>MAR Positano · ~30 min guided</span><span>open to 21:00</span></div>
-          <p>Beneath Santa Maria Assunta's dome: a maritime villa buried under eleven metres of ash by the <b>same eruption as Pompeii</b>, found in 2003. A glass walkway crosses the frescoed dining room, archaeologist guiding. Ticket office in the Luca Vespoli tourist office at the foot of the church steps — it fits after the beach.</p>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://marpositano.it/web/en/">MAR official</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=MAR+Positano+Villa+Romana">Directions</a>
+      <div class="titem highlight" data-t="PM"><div class="tdot"></div>
+        <div class="ttime">YOUR DAY · AFTERNOON</div>
+        <div class="activity-card">
+          <div class="activity-title">🏛️ The villa under the church</div>
+          <div class="activity-meta"><span class="meta-item">📍 MAR Positano</span><span class="meta-item">⏱️ ~30 min guided</span><span class="meta-item">🕘 open to 21:00</span></div>
+          <p class="activity-description">Beneath Santa Maria Assunta's dome: a maritime villa buried under eleven metres of ash by the <b>same eruption as Pompeii</b>, found in 2003. A glass walkway crosses the frescoed dining room, archaeologist guiding. Ticket office in the Luca Vespoli tourist office at the foot of the church steps — it fits after the beach.</p>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://marpositano.it/web/en/">MAR official</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=MAR+Positano+Villa+Romana">Directions</a>
           </div>
         </div>
       </div>
 
-      <div class="ev hl" data-t="18:00"><span class="tm">18:00</span>
-        <div class="ec">
-          <h3>Sunset among the Sirens <span class="chip op">book in town</span></h3>
-          <div class="sub"><span>Li Galli · 15–20 min out</span><span>sunset ~20:00</span><span class="pr">from ~€60–80 pp</span></div>
-          <p>Boats circle Li Galli — landing forbidden, privately owned, Nureyev the last owner — with a swim stop in the Sirens' water and prosecco for golden hour. The best Odyssey moment on offer in 2026.</p>
-          <div class="btns">
-            <a class="btn go" target="_blank" rel="noopener" href="https://www.lucibello.it/en/sunset-experience-from-positano-to-li-galli-island">Lucibello sunset</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Lucibello+boat+rental+Positano">Boat office</a>
+      <div class="titem highlight" data-t="18:00"><div class="tdot"></div>
+        <div class="ttime">YOUR DAY · 6:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">⛵ Sunset among the Sirens <span class="status decide">book in town</span></div>
+          <div class="activity-meta"><span class="meta-item">📍 Li Galli · 15–20 min out</span><span class="meta-item">🌅 sunset ~20:00</span><span class="price-badge">from ~€60–80 pp</span></div>
+          <p class="activity-description">Boats circle Li Galli — landing forbidden, privately owned, Nureyev the last owner — with a swim stop in the Sirens' water and prosecco for golden hour. The best Odyssey moment on offer in 2026.</p>
+          <div class="action-buttons">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.lucibello.it/en/sunset-experience-from-positano-to-li-galli-island">Lucibello sunset</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Lucibello+boat+rental+Positano">Boat office</a>
           </div>
         </div>
       </div>
 
-      <div class="ev" data-t="ideas"><span class="tm">wk</span>
-        <div class="ec">
-          <h3>With the family, any day</h3>
-          <p><b>Path of the Gods</b> — Bomerano → Nocelle at 8:00 before the heat; lemon granita in Nocelle, 1,700 steps home. <b>Amalfi + Ravello</b> by ferry — the cathedral, then the bus up to Villa Rufolo's terraces. <b>Capri</b> — better by small private boat than the packed ferry-and-funicular circuit in August. <b>Da Adolfo</b> — boat-access beach shack at Laurito; mozzarella grilled on lemon leaves; book days ahead.</p>
-          <div class="btns">
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Da+Adolfo+Positano">Da Adolfo</a>
-            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sentiero+degli+Dei+Bomerano">Path of the Gods</a>
+      <div class="titem" data-t="wk"><div class="tdot"></div>
+        <div class="ttime">WITH THE FAMILY · ANY DAY</div>
+        <div class="activity-card">
+          <div class="activity-title">🍋 Week ideas</div>
+          <p class="activity-description"><b>Path of the Gods</b> — Bomerano → Nocelle at 8:00 before the heat; lemon granita in Nocelle, 1,700 steps home.<br><b>Amalfi + Ravello</b> by ferry — the cathedral, then the bus up to Villa Rufolo's terraces.<br><b>Capri</b> — better by small private boat than the packed ferry-and-funicular circuit in August.<br><b>Da Adolfo</b> — boat-access beach shack at Laurito; mozzarella grilled on lemon leaves; book days ahead.</p>
+          <div class="action-buttons">
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Da+Adolfo+Positano">Da Adolfo</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sentiero+degli+Dei+Bomerano">Path of the Gods</a>
           </div>
         </div>
       </div>
@@ -626,37 +621,36 @@
     </div>
   </section>
 
-  <!-- ---------- RETURN ---------- -->
+  <!-- RETURN -->
   <section class="day" id="d-ret" data-date="2026-08-15">
-    <div class="dayhd fx">
-      <span class="kick">Saturday 15 August · Positano → NAP · LHR 19:40</span>
-      <h2>The Ferragosto exit</h2>
-      <p class="sub">Italy's peak holiday date. Whichever option wins gets booked the day it's chosen.</p>
-    </div>
-    <div class="note fx"><b>The road is the trap:</b> SS163 is a car park on Ferragosto and Positano runs its own procession. Any car plan needs a 3-hour budget and still carries the risk; the ferry's only enemy is a sell-out — which is why it books now.</div>
-    <div class="rail fx">
+    <div class="kicker">Saturday 15 August · Positano → NAP · LHR 19:40</div>
+    <h2 class="day-title">The Ferragosto Exit</h2>
+    <p class="day-subtitle">Italy's peak holiday date. Whichever option wins gets booked the day it's chosen.</p>
+    <div class="booking-reminder"><h4>⚠️ The road is the trap</h4><p>SS163 is a car park on Ferragosto and Positano runs its own procession. Any car plan needs a 3-hour budget and still carries the risk; the ferry's only enemy is a sell-out — which is why it books now.</p></div>
+    <div class="timeline">
 
-      <div class="ev hl" data-t="12:30"><span class="tm">A</span>
-        <div class="ec">
-          <h3>Ferry + taxi <span class="chip op">decide</span></h3>
-          <div class="sub"><span>dep ~12:30 · port ~13:50 · NAP ~14:30</span><span class="pr">~€31 pp + taxi</span></div>
-          <p>Lucibello ~12:30 (or NLG ~10:55) to Beverello, then 25–35 min to the airport — city-side traffic is normal; the chaos lives on the coast road. Lands ~5 hours before the flight: dull, bulletproof. <b>Not</b> the last sailings (~15:40/16:24): a cancellation there leaves no road fallback that makes 19:40.</p>
+      <div class="titem highlight" data-t="A"><div class="tdot"></div>
+        <div class="ttime">OPTION A</div>
+        <div class="activity-card">
+          <div class="activity-title">⛴️ Ferry + taxi <span class="status decide">decide</span></div>
+          <div class="activity-meta"><span class="meta-item">🕧 dep ~12:30 · port ~13:50 · NAP ~14:30</span><span class="price-badge">~€31 pp + taxi</span></div>
+          <p class="activity-description">Lucibello ~12:30 (or NLG ~10:55) to Beverello, then 25–35 min to the airport — city-side traffic is normal; the chaos lives on the coast road. Lands ~5 hours before the flight: dull, bulletproof. <b>Not</b> the last sailings (~15:40/16:24): a cancellation there leaves no road fallback that makes 19:40.</p>
         </div>
       </div>
 
-      <div class="ev hl" data-t="13:00"><span class="tm">B</span>
-        <div class="ec">
-          <h3>Private van, whole group <span class="chip op">decide</span></h3>
-          <div class="sub"><span>leave 13:00–13:30 · budget 3 h+</span><span class="pr">~€180–280 the vehicle</span></div>
-          <p>With more of you going back, one van door-to-door beats per-head tickets and swallows the luggage mountain. Leaving by 13:30 with a 3-hour budget arrives ~16:30 for 19:40 — workable, zero slack for a real jam. Pickup at the ZTL edge (Piazza dei Mulini); porter the bags down.</p>
-          <p>Split option: luggage + volunteers in the van, the impatient on the boat.</p>
+      <div class="titem highlight" data-t="B"><div class="tdot"></div>
+        <div class="ttime">OPTION B</div>
+        <div class="activity-card">
+          <div class="activity-title">🚐 Private van, whole group <span class="status decide">decide</span></div>
+          <div class="activity-meta"><span class="meta-item">🕐 leave 13:00–13:30 · budget 3 h+</span><span class="price-badge">~€180–280 the vehicle</span></div>
+          <p class="activity-description">With more of you going back, one van door-to-door beats per-head tickets and swallows the luggage mountain. Leaving by 13:30 with a 3-hour budget arrives ~16:30 for 19:40 — workable, zero slack for a real jam. Pickup at the ZTL edge (Piazza dei Mulini); porter the bags down. Split option: luggage + volunteers in the van, the impatient on the boat.</p>
         </div>
       </div>
 
-      <div class="ev" data-t="call"><span class="tm">—</span>
-        <div class="ec">
-          <h3>The call</h3>
-          <p>Ferry fails into an afternoon lost at the airport; the van fails into a missed flight. Both clear the bar on paper. Needed: headcount, luggage count, the family's appetite for road risk — then book same day.</p>
+      <div class="titem" data-t="call"><div class="tdot"></div>
+        <div class="ttime">THE CALL</div>
+        <div class="activity-card">
+          <p class="activity-description">Ferry fails into an afternoon lost at the airport; the van fails into a missed flight. Both clear the bar on paper. Needed: headcount, luggage count, the family's appetite for road risk — then book same day.</p>
         </div>
       </div>
 
@@ -666,109 +660,105 @@
 
 <!-- ==================== FOOD ==================== -->
 <main class="view" id="v-food">
-  <div class="sechd fx"><span class="kick">The ledger</span><h2>Pizza, verified</h2></div>
-  <p class="lead fx">Google ratings checked individually, July '26. Cut on your criteria: Concettina ai Tre Santi (3.9★), 50 Kalò (London branch).</p>
+  <div class="kicker">The ledger · ratings verified July '26</div>
+  <h2 class="day-title">Pizza 🍕</h2>
+  <p class="day-subtitle">Cut on your criteria: Concettina ai Tre Santi (3.9⭐), 50 Kalò (London branch).</p>
 
-  <div class="g hl fx"><h3>Palazzo Petrucci <span class="rt">4.2★ · 2,180</span></h3><div class="sub">new wave · Spaccanapoli · bookable</div><p>#3 in Italy 2026, up from 22nd — the upstart story of the year. <b>Friday's table.</b></p>
-    <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.thefork.it/ristorante/palazzo-petrucci-pizzeria-r699885">TheFork</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Palazzo+Petrucci+Pizzeria+Naples">Map</a></div></div>
+  <div class="essential-card"><h3>Palazzo Petrucci <span class="rate">⭐ 4.2 · 2,180</span></h3><div class="where">new wave · Spaccanapoli · bookable</div><p>#3 in Italy 2026, up from 22nd — the upstart story of the year. <b>Friday's table.</b></p>
+    <div class="action-buttons"><a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.thefork.it/ristorante/palazzo-petrucci-pizzeria-r699885">TheFork</a><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Palazzo+Petrucci+Pizzeria+Naples">Map</a></div></div>
 
-  <div class="g fx"><h3>10 Diego Vitagliano <span class="rt">4.4★ · 2,014</span></h3><div class="sub">new wave · Santa Lucia · books online</div><p>#2 in Italy 2025, former world #1. The bigger name; canotto dough obsessive.</p>
-    <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.diegovitagliano.it/">Book</a><a class="btn" href="tel:+390811822060">Call</a></div></div>
+  <div class="essential-card"><h3>10 Diego Vitagliano <span class="rate">⭐ 4.4 · 2,014</span></h3><div class="where">new wave · Santa Lucia · books online</div><p>#2 in Italy 2025, former world #1. The bigger name; canotto dough obsessive.</p>
+    <div class="action-buttons"><a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.diegovitagliano.it/">Book</a><a class="btn btn-secondary" href="tel:+390811822060">Call</a></div></div>
 
-  <div class="g fx"><h3>Francesco &amp; Salvatore Salvo <span class="rt">4.3★ · 3,961</span></h3><div class="sub">modern classic · Riviera di Chiaia · phone slots</div><p>Third-generation brothers; the bridge between schools. Fixed seatings from 19:00 — call ahead.</p>
-    <div class="btns"><a class="btn go" href="tel:+390813599926">Call +39 081 359 9926</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Pizzeria+Salvo+Riviera+di+Chiaia+Naples">Map</a></div></div>
+  <div class="essential-card"><h3>Francesco &amp; Salvatore Salvo <span class="rate">⭐ 4.3 · 3,961</span></h3><div class="where">modern classic · Riviera di Chiaia · phone slots</div><p>Third-generation brothers; the bridge between schools. Fixed seatings from 19:00 — call ahead.</p>
+    <div class="action-buttons"><a class="btn btn-primary" href="tel:+390813599926">Call</a><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Pizzeria+Salvo+Riviera+di+Chiaia+Naples">Map</a></div></div>
 
-  <div class="g fx"><h3>La Notizia 94 <span class="rt">4.3★ · 946</span></h3><div class="sub">gourmet · Vomero · reservation only</div><p>Enzo Coccia — inventor of gourmet Neapolitan pizza. Wine-paired tasting register; a different kind of night.</p>
-    <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Pizzaria+La+Notizia+94+Naples">Map</a></div></div>
+  <div class="essential-card"><h3>La Notizia 94 <span class="rate">⭐ 4.3 · 946</span></h3><div class="where">gourmet · Vomero · reservation only</div><p>Enzo Coccia — inventor of gourmet Neapolitan pizza. Wine-paired tasting register; a different kind of night.</p></div>
 
-  <div class="g fx"><h3>Da Attilio <span class="rt">4.5★ · 5,909</span></h3><div class="sub">classic · Pignasecca · walk-in</div><p>Since 1938, third generation at the oven. The non-cruise-ship classic. <b>Saturday's dinner.</b></p>
-    <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Pizzeria+Da+Attilio+Pignasecca+Naples">Map</a></div></div>
+  <div class="essential-card"><h3>Da Attilio <span class="rate">⭐ 4.5 · 5,909</span></h3><div class="where">classic · Pignasecca · walk-in</div><p>Since 1938, third generation at the oven. The non-cruise-ship classic. <b>Saturday's dinner.</b></p></div>
 
-  <div class="g fx"><h3>Nennella <span class="rt">4.5★</span></h3><div class="sub">classic · Quartieri Spagnoli · walk-in</div><p>Since 1930 — rowdy, cheap, loud. The backup when Attilio's queue is grim.</p></div>
+  <div class="essential-card plain"><h3>Nennella <span class="rate">⭐ 4.5</span></h3><div class="where">classic · Quartieri Spagnoli · walk-in</div><p>Since 1930 — rowdy, cheap, loud. The backup when Attilio's queue is grim.</p></div>
 
-  <div class="g fx"><h3>La Masardona <span class="rt">4.7★ · 5,296</span></h3><div class="sub">pizza fritta · Garibaldi · quick</div><p>Fried-pizza institution since 1945 — the highest rating on this list. Saturday's off-the-train snack.</p></div>
+  <div class="essential-card"><h3>La Masardona <span class="rate">⭐ 4.7 · 5,296</span></h3><div class="where">pizza fritta · Garibaldi · quick</div><p>Fried-pizza institution since 1945 — the highest rating on this list. Saturday's off-the-train snack.</p></div>
 
-  <div class="g fx"><h3>Starita a Materdei <span class="rt">4.4★</span></h3><div class="sub">classic · Materdei · walk-in</div><p>Since 1901, the Sophia Loren one. Great — and now a Milan–NY–Atlanta mini-chain, so it rides the bench.</p></div>
+  <div class="essential-card plain"><h3>Starita a Materdei <span class="rate">⭐ 4.4</span></h3><div class="where">classic · Materdei · walk-in</div><p>Since 1901, the Sophia Loren one. Great — and now a Milan–NY–Atlanta mini-chain, so it rides the bench.</p></div>
 
-  <div class="g hl fx"><h3>Da Michele — the verdict <span class="rt">queue 45–60 min</span></h3><div class="sub">1870 · margherita &amp; marinara only</div><p>The most famous pizzeria on earth and the genre's type specimen — behind Attilio and Nennella on rating, with the worst queue in the city. It's Friday-or-never on this itinerary, and Friday has a better answer. <b>Skip, without guilt.</b></p></div>
+  <div class="booking-reminder"><h4>🤔 Da Michele — the verdict</h4><p>The most famous pizzeria on earth (1870, margherita &amp; marinara only) — behind Attilio and Nennella on rating, with the worst queue in the city (45–60 min). It's Friday-or-never on this itinerary, and Friday has a better answer. <b style="color:var(--text)">Skip, without guilt.</b></p></div>
 
-  <div class="sechd fx"><span class="kick">Beyond pizza</span><h2>Eat these too</h2></div>
-  <div class="g fx"><p><b>Sfogliatella</b> at Gambrinus (Sunday, planned) — riccia, not frolla, for the shatter. <b>Piennolo tomatoes</b> on any pizza that specs them — the Vesuvius DOP cherry, hung in clusters. <b>Babà</b> from any centro pasticceria. In Positano: <b>delicata al limone</b> anything — the lemons are the point of the coast.</p></div>
+  <div class="essential-card"><h3>🍋 Beyond pizza</h3><p><b>Sfogliatella</b> at Gambrinus (Sunday, planned) — riccia, not frolla, for the shatter. <b>Piennolo tomatoes</b> on any pizza that specs them — the Vesuvius DOP cherry, hung in clusters. <b>Babà</b> from any centro pasticceria. In Positano: anything <b>al limone</b> — the lemons are the point of the coast.</p></div>
 </main>
 
 <!-- ==================== SHOPS ==================== -->
 <main class="view" id="v-shops">
-  <div class="sechd fx"><span class="kick">Her brief</span><h2>Craft you can't buy in London</h2></div>
-  <p class="lead fx">Saturday evening folds into the Spaccanapoli stroll. Chiaia pair only if Herculaneum runs quick.</p>
+  <div class="kicker">Her brief · Saturday evening + any Chiaia window</div>
+  <h2 class="day-title">Shops 🛍️</h2>
+  <p class="day-subtitle">Local craft you can't buy in London. Saturday evening folds into the Spaccanapoli stroll.</p>
 
-  <div class="g hl fx"><h3>Ferrigno — presepi figures</h3><div class="sub">Via S. Gregorio Armeno 8 · since 1836</div><p>The master workshop of the Neapolitan nativity tradition — terracotta hands and faces, silk costumes, and a sideline in whoever is in this year's news. The street itself exists nowhere else on earth.</p>
-    <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Ferrigno+Via+San+Gregorio+Armeno+Naples">Map</a></div></div>
+  <div class="essential-card"><h3>Ferrigno — presepi figures</h3><div class="where">Via S. Gregorio Armeno 8 · since 1836</div><p>The master workshop of the Neapolitan nativity tradition — terracotta hands and faces, silk costumes, and a sideline in whoever is in this year's news. The street itself exists nowhere else on earth.</p>
+    <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Ferrigno+Via+San+Gregorio+Armeno+Naples">Map</a></div></div>
 
-  <div class="g hl fx"><h3>Casa Cometa — ceramics &amp; ex-votos</h3><div class="sub">centro storico · contemporary</div><p>Terry Di Renzo's studio: hand-made plates, San Gennaro candles, flaming-heart ex-votos — the folk-Catholic object tradition made covetable. The strongest single stop on this list.</p>
-    <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Casa+Cometa+Naples">Map</a></div></div>
+  <div class="essential-card"><h3>Casa Cometa — ceramics &amp; ex-votos</h3><div class="where">centro storico · contemporary</div><p>Terry Di Renzo's studio: hand-made plates, San Gennaro candles, flaming-heart ex-votos — the folk-Catholic object tradition made covetable. The strongest single stop on this list.</p>
+    <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Casa+Cometa+Naples">Map</a></div></div>
 
-  <div class="g fx"><h3>Antica Manifattura Ceramica</h3><div class="sub">Stingo family · since 1840</div><p>Hand-painted majolica in the Campanian tradition, painted on site — watch a piece made, carry one home.</p>
-    <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Antica+Manifattura+Ceramica+Stingo+Naples">Map</a></div></div>
+  <div class="essential-card plain"><h3>Antica Manifattura Ceramica</h3><div class="where">Stingo family · since 1840</div><p>Hand-painted majolica in the Campanian tradition, painted on site — watch a piece made, carry one home.</p>
+    <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Antica+Manifattura+Ceramica+Stingo+Naples">Map</a></div></div>
 
-  <div class="g fx"><h3>Via San Sebastiano</h3><div class="sub">off Piazza Bellini</div><p>The street of instrument makers — luthiers and mandolins in a row, on the way to the aperitivo anyway.</p></div>
+  <div class="essential-card plain"><h3>Via San Sebastiano</h3><div class="where">off Piazza Bellini</div><p>The street of instrument makers — luthiers and mandolins in a row, on the way to the aperitivo anyway.</p></div>
 
-  <div class="g hl fx"><h3>Ascione — coral &amp; cameos</h3><div class="sub">Galleria Umberto I · Torre del Greco house, since 1855</div><p>Hand-carved cameos and coral from the town that has been world capital of the craft for two centuries. The most not-in-London category of the trip — make time if any Chiaia window opens.</p>
-    <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Ascione+Coralli+Galleria+Umberto+Naples">Map</a></div></div>
+  <div class="essential-card"><h3>Ascione — coral &amp; cameos</h3><div class="where">Galleria Umberto I · Torre del Greco house, since 1855</div><p>Hand-carved cameos and coral from the town that has been world capital of the craft for two centuries. The most not-in-London category of the trip — make time if any Chiaia window opens.</p>
+    <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Ascione+Coralli+Galleria+Umberto+Naples">Map</a></div></div>
 
-  <div class="g fx"><h3>Tramontano — leather</h3><div class="sub">Chiaia · since 1865</div><p>Naples' leather house, hand-stitched bags — the direct Florentine-leather analogue.</p>
-    <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Tramontano+Naples">Map</a></div></div>
+  <div class="essential-card plain"><h3>Tramontano — leather</h3><div class="where">Chiaia · since 1865</div><p>Naples' leather house, hand-stitched bags — the direct Florentine-leather analogue.</p>
+    <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Tramontano+Naples">Map</a></div></div>
 
-  <div class="g fx"><h3>The tomato answer</h3><div class="sub">Pignasecca market · DOP</div><p>San Marzanos grow in the plain <b>south</b> of Vesuvius, not on it. The volcano's own is the <b>pomodorino del piennolo</b> — hanging clusters that keep for months. Buy a cluster or jars at Pignasecca; flight-bag friendly, better than anything exported. That's your next-best-thing-to-Vesuvius.</p>
-    <div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Mercato+della+Pignasecca+Naples">Pignasecca</a></div></div>
+  <div class="essential-card"><h3>🍅 The tomato answer</h3><div class="where">Pignasecca market · DOP</div><p>San Marzanos grow in the plain <b>south</b> of Vesuvius, not on it. The volcano's own is the <b>pomodorino del piennolo</b> — hanging clusters that keep for months. Buy a cluster or jars at Pignasecca; flight-bag friendly, better than anything exported. That's your next-best-thing-to-Vesuvius.</p>
+    <div class="action-buttons"><a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Mercato+della+Pignasecca+Naples">Pignasecca</a></div></div>
 </main>
 
 <!-- ==================== ODYSSEY ==================== -->
 <main class="view" id="v-ody">
-  <div class="ody-hero fx">
-    <h2>You are sailing through the <em>Odyssey</em></h2>
-    <p>Good year for it. Everything below is walkable from, or visible from, this itinerary.</p>
-  </div>
-  <div class="meander fx" aria-hidden="true"></div>
+  <div class="kicker">Timely, with the film just out</div>
+  <h2 class="day-title">The Odyssey Thread 🌊</h2>
+  <p class="day-subtitle">Everything below is walkable from, or visible from, this itinerary.</p>
 
-  <div class="o fx">
-    <h3>Naples is a Greek city</h3>
+  <div class="essential-card">
+    <h3>🏛️ Naples is a Greek city</h3>
     <p>Founded ~470 BC as <b>Neapolis</b> — "new city" — by Greeks from Cumae, over the older settlement of <b>Parthenope</b>: the siren who drowned herself when Odysseus sailed past unharmed and washed ashore where the city rose. Neapolitans are still <b>partenopei</b>; so is the football club. The grid you walk on Friday night is the Greek grid — Spaccanapoli is the ancient decumanus inferior.</p>
-    <p><b>Touch it:</b> the city walls exposed in Piazza Bellini, spritz in hand · the Greek agora under San Lorenzo Maggiore on the pizza street · the Greek rooms at MANN.</p>
+    <p style="margin-top:8px"><b>Touch it:</b> the city walls exposed in Piazza Bellini, spritz in hand · the Greek agora under San Lorenzo Maggiore on the pizza street · the Greek rooms at MANN.</p>
   </div>
 
-  <div class="o fx">
-    <h3>Positano faces the Sirens</h3>
+  <div class="essential-card">
+    <h3>🧜‍♀️ Positano faces the Sirens</h3>
     <p>The three islets off Spiaggia Grande are <b>Li Galli — the Sirenusai</b>, the canonical home of Homer's Sirens, stated as plain geography by Strabo two thousand years ago. The archipelago's older name is <b>Le Sirenuse</b>. At Punta Campanella, the peninsula's tip, legend holds <b>Odysseus himself founded the temple of Athena</b> after passing them tied to the mast.</p>
-    <p><b>Sail it:</b> the sunset cruise circles the islands with a swim stop — as close to the Sirens as the law allows.</p>
-    <a class="btn" target="_blank" rel="noopener" href="https://www.lucibello.it/en/sunset-experience-from-positano-to-li-galli-island">The sunset cruise</a>
+    <div class="action-buttons"><a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.lucibello.it/en/sunset-experience-from-positano-to-li-galli-island">The sunset cruise</a></div>
   </div>
 
-  <div class="o fx">
-    <h3>One eruption ties the trip together</h3>
+  <div class="essential-card">
+    <h3>🌋 One eruption ties the trip together</h3>
     <p>Pompeii and Herculaneum on Saturday; their treasures at MANN that evening; and beneath Positano's own church, the <b>MAR villa</b> — buried by the same week of ash in 79 AD, eleven metres down, a glass walkway over its frescoes. Four sites, one catastrophe, one holiday.</p>
   </div>
 
-  <div class="o fx">
-    <h3>Virgil holds both ends</h3>
-    <p>He lived and wrote the <em>Georgics</em> in Naples, set Aeneas' descent to the underworld at <b>Cumae</b> just up the coast, and is buried at Piedigrotta under the epitaph: <em class="q">"Mantua bore me, Calabria took me, now Parthenope holds me."</em></p>
-    <p>And the philosophers, since you asked: <b>Pythagoras</b> taught at Croton, deep in Calabria — but the <b>Eleatic school</b> of Parmenides and Zeno sat at Elea, on the Cilento coast two hours south of your beach. That is as close as philosophy gets to the sun loungers.</p>
+  <div class="essential-card">
+    <h3>📜 Virgil holds both ends</h3>
+    <p>He lived and wrote the <em>Georgics</em> in Naples, set Aeneas' descent to the underworld at <b>Cumae</b> just up the coast, and is buried at Piedigrotta under the epitaph: <em style="color:var(--warning)">"Mantua bore me, Calabria took me, now Parthenope holds me."</em></p>
+    <p style="margin-top:8px">And the philosophers, since you asked: <b>Pythagoras</b> taught at Croton, deep in Calabria — but the <b>Eleatic school</b> of Parmenides and Zeno sat at Elea, on the Cilento coast two hours south of your beach. That is as close as philosophy gets to the sun loungers.</p>
   </div>
 </main>
 
-<nav class="nav" aria-label="App sections">
-  <button class="on" data-v="v-trip" type="button" aria-label="Trip"><svg viewBox="0 0 24 24"><path d="M3 20c3-6 7-9 9-9s6 3 9 9"/><circle cx="12" cy="6" r="2.5"/></svg>Trip</button>
-  <button data-v="v-days" type="button" aria-label="Itinerary"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>Days</button>
-  <button data-v="v-food" type="button" aria-label="Food"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 8.5 8.5M9 10.2 A 1 1 0 0 0 9 10.3 M 13.6 8.4 A 1 1 0 0 0 13.6 8.5 M 12.6 14.2 A 1 1 0 0 0 12.6 14.3"/></svg>Food</button>
-  <button data-v="v-shops" type="button" aria-label="Shops"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 11V6a3 3 0 0 1 6 0v5"/></svg>Shops</button>
-  <button data-v="v-ody" type="button" aria-label="Odyssey"><svg viewBox="0 0 24 24"><path d="M4 18c2-1.5 4-1.5 6 0s4 1.5 6 0 3-1 4 0"/><path d="M6 14l6-9 6 9M12 5v9"/></svg>Odyssey</button>
+<nav class="tabs" aria-label="App sections">
+  <button class="tab active" data-v="v-trip" type="button">Trip</button>
+  <button class="tab" data-v="v-days" type="button">Days</button>
+  <button class="tab" data-v="v-food" type="button">Food</button>
+  <button class="tab" data-v="v-shops" type="button">Shops</button>
+  <button class="tab" data-v="v-ody" type="button">Odyssey</button>
 </nav>
 
 <script>
   // ---------- view switching ----------
-  var navBtns = document.querySelectorAll('.nav button');
+  var navBtns = document.querySelectorAll('.tabs .tab');
   function showView(id) {
     document.querySelectorAll('.view').forEach(function (v) { v.classList.toggle('on', v.id === id); });
-    navBtns.forEach(function (b) { b.classList.toggle('on', b.dataset.v === id); });
+    navBtns.forEach(function (b) { b.classList.toggle('active', b.dataset.v === id); });
     window.scrollTo({ top: 0 });
   }
   navBtns.forEach(function (b) { b.addEventListener('click', function () { showView(b.dataset.v); }); });
@@ -793,25 +783,24 @@
   // ---------- clock + countdown ----------
   var DEP = new Date('2026-08-07T19:00:00+02:00');
   var RET = new Date('2026-08-15T19:40:00+02:00');
-  function naplesNow() { return new Date(); }
   function tick() {
-    var now = naplesNow();
+    var now = new Date();
     var t = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit' }).format(now);
     document.getElementById('clk').textContent = t;
     var days = Math.ceil((DEP - now) / 864e5);
     var big = document.getElementById('bigCount'), sub = document.getElementById('bigSub');
     if (now < DEP) {
-      document.getElementById('clkSub').textContent = 'NAPLES · ' + days + (days === 1 ? ' DAY' : ' DAYS');
+      document.getElementById('clkSub').textContent = days + (days === 1 ? ' day to go' : ' days to go');
       big.innerHTML = days + '<small>days to go</small>';
     } else if (now <= RET) {
       var dayN = Math.floor((now - DEP) / 864e5) + 1;
-      document.getElementById('clkSub').textContent = 'ON THE BAY';
+      document.getElementById('clkSub').textContent = 'on the bay';
       big.innerHTML = 'Day ' + dayN + '<small>of 9</small>';
       sub.innerHTML = now < new Date('2026-08-09T12:00:00+02:00')
         ? 'Naples: pizza, the buried cities, the Greeks underfoot.'
         : 'Positano: the beach, the villa under the church, the <b>Sirens</b> offshore.';
     } else {
-      document.getElementById('clkSub').textContent = 'NAPLES';
+      document.getElementById('clkSub').textContent = 'Naples Time';
       big.innerHTML = 'Andata<small>e ritorno</small>';
       sub.textContent = 'Trip complete. The piennolo cluster should be hanging in the kitchen.';
     }
@@ -820,14 +809,13 @@
 
   // ---------- "now" marker on trip days ----------
   function markNow() {
-    var now = naplesNow();
+    var now = new Date();
+    var todayIt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome' }).format(now);
+    var hm = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit', hour12: false }).format(now);
     document.querySelectorAll('.day.on').forEach(function (day) {
-      var date = day.dataset.date;
-      var todayIt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome' }).format(now);
-      var evs = day.querySelectorAll('.ev');
+      var evs = day.querySelectorAll('.titem');
       evs.forEach(function (e) { e.classList.remove('now'); });
-      if (todayIt !== date) return;
-      var hm = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit', hour12: false }).format(now);
+      if (day.dataset.date !== todayIt) return;
       var cur = null;
       evs.forEach(function (e) {
         var t = e.dataset.t;

@@ -1,4 +1,4 @@
-const CACHE = 'italy26-v2';
+const CACHE = 'italy26-v3';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {

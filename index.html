@@ -263,7 +263,7 @@
     <div id="tasks">
       <label class="task"><input type="checkbox" data-k="ret"><span><span class="tt">Return travel, Sat 15 Aug — decide ferry vs van, book same day</span><br><span class="td">Ferragosto. Highest-risk gap in the plan. Needs headcount + luggage count.</span></span></label>
       <label class="task"><input type="checkbox" data-k="pompeii" checked><span><span class="tt">Pompeii — Plus tickets, 09:00 Sat 8 Aug</span><br><span class="td">booked ✅ · €25 pp · bring matching passports</span></span></label>
-      <label class="task"><input type="checkbox" data-k="herc"><span><span class="tt">Herculaneum — afternoon tickets, Sat 8 Aug</span><br><span class="td">ercolano.beniculturali.it · €16 pp</span></span></label>
+      <label class="task"><input type="checkbox" data-k="herc" checked><span><span class="tt">Herculaneum — 14:30 entry, Sat 8 Aug</span><br><span class="td">booked ✅ · €16 pp</span></span></label>
       <label class="task"><input type="checkbox" data-k="sansevero"><span><span class="tt">Cappella Sansevero — ~18:30 slot, Sat 8 Aug</span><br><span class="td">museosansevero.it · pre-booking mandatory · €8</span></span></label>
       <label class="task"><input type="checkbox" data-k="pizza"><span><span class="tt">Friday 21:00 table — Petrucci or Vitagliano</span><br><span class="td">TheFork / diegovitagliano.it · Instagram check for August hours</span></span></label>
       <label class="task"><input type="checkbox" data-k="ferry1" checked><span><span class="tt">Naples → Positano ferry, 10:00 Sun 9 Aug</span><br><span class="td">booked · Molo Beverello</span></span></label>
@@ -410,14 +410,15 @@
         </div>
       </div>
 
-      <div class="titem" data-t="13:00"><div class="tdot"></div>
-        <div class="ttime">1:00 PM</div>
+      <div class="titem" data-t="13:30"><div class="tdot"></div>
+        <div class="ttime">1:30 PM</div>
         <div class="activity-card">
           <div class="activity-title">🍝 Lunch in Ercolano</div>
-          <div class="activity-meta"><span class="meta-item">🚆 one stop back</span><span class="price-badge">€15–25 pp</span></div>
+          <div class="activity-meta"><span class="meta-item">🚆 one stop back</span><span class="meta-item">⏱️ 13:30–14:20, keep it to 50 min</span><span class="price-badge">€10–25 pp</span></div>
           <div class="expand-icon">⌄</div>
           <div class="activity-details">
-          <p class="activity-description"><b>Viva Lo Re</b> — osteria with a serious wine wall on Corso Resina, the Bourbon "Golden Mile", ten minutes from the ruins. Exactly the tiny-place-in-nowhere Italy does best. Faster: <b>Luna Caprese</b>, family pizzeria by the station.</p>
+          <p class="activity-description"><b>Viva Lo Re</b> — osteria with a serious wine wall on Corso Resina, the Bourbon "Golden Mile". The good one, but it will happily eat 90 minutes: order <b>one course each plus a glass and say so on sitting down</b>, then ask for il conto when the plates land.</p>
+          <p class="activity-description">Or eat like a local and keep the appetite for Attilio: a <b>tavola calda or friggitoria</b> near Ercolano Scavi — counter pasta, fried pizza, arancini, 20 minutes standing, ~€10 a head.</p>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Viva+Lo+Re+Ercolano">Viva Lo Re</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Luna+Caprese+Ercolano">Luna Caprese</a>
@@ -426,11 +427,11 @@
         </div>
       </div>
 
-      <div class="titem highlight" data-t="14:15"><div class="tdot"></div>
-        <div class="ttime">2:15 PM</div>
+      <div class="titem highlight" data-t="14:30"><div class="tdot"></div>
+        <div class="ttime">2:30 PM</div>
         <div class="activity-card">
-          <div class="activity-title">🏛️ Herculaneum <span class="status book">book now</span></div>
-          <div class="activity-meta"><span class="meta-item">⏱️ ~2 hours</span><span class="price-badge">€16 pp</span></div>
+          <div class="activity-title">🏛️ Herculaneum <span class="status booked">booked ✅</span></div>
+          <div class="activity-meta"><span class="meta-item">🎫 14:30 entry</span><span class="meta-item">⏱️ ~2 hours</span><span class="price-badge">€16 pp</span></div>
           <div class="expand-icon">⌄</div>
           <div class="activity-details">
           <p class="activity-description">A quarter Pompeii's size, twice the preservation — the surge carbonised wood instead of crushing it, so you walk two-storey houses with beams, doors, furniture. See the <b>Neptune and Amphitrite mosaic</b>, the Samnite House, and the <b>boathouses</b> where three hundred skeletons were found mid-escape. Plenty rate it above Pompeii; you'll argue both sides at dinner.</p>
@@ -909,7 +910,7 @@
   document.getElementById('clearTicks').addEventListener('click', function () {
     saved = {};
     try { localStorage.removeItem(KEY); } catch (e) {}
-    boxes.forEach(function (c) { c.checked = ['ferry1','pompeii'].indexOf(c.dataset.k) > -1; c.closest('.task').classList.toggle('done', c.checked); });
+    boxes.forEach(function (c) { c.checked = ['ferry1','pompeii','herc'].indexOf(c.dataset.k) > -1; c.closest('.task').classList.toggle('done', c.checked); });
   });
 
   // ---------- swipe between days ----------

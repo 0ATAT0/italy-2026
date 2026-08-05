@@ -267,7 +267,7 @@
       <label class="task"><input type="checkbox" data-k="sansevero" checked><span><span class="tt">Cappella Sansevero — 18:30 slot, Sat 8 Aug</span><br><span class="td">booked ✅ · €8 pp · ticket void after 18:40</span></span></label>
       <label class="task"><input type="checkbox" data-k="pizza" checked><span><span class="tt">Friday 21:00 table — Francesco &amp; Salvatore Salvo</span><br><span class="td">booked ✅ · Riviera di Chiaia 271 · fixed turno, arrive on time</span></span></label>
       <label class="task"><input type="checkbox" data-k="ferry1" checked><span><span class="tt">Naples → Positano ferry, 10:00 Sun 9 Aug</span><br><span class="td">booked · Molo Beverello</span></span></label>
-      <label class="task"><input type="checkbox" data-k="antiquario"><span><span class="tt">L’Antiquario — reserve ~23:30 Fri 7 Aug</span><br><span class="td">Via Vannella Gaetani 2 · Friday couples queue without a booking</span></span></label>
+      <label class="task"><input type="checkbox" data-k="antiquario" checked><span><span class="tt">L’Antiquario — 23:30 Fri 7 Aug, 2 guests</span><br><span class="td">booked ✅ · Via Vannella Gaetani 2</span></span></label>
       <label class="task"><input type="checkbox" data-k="galli"><span><span class="tt">Li Galli sunset boat — once the couple-day is picked</span><br><span class="td">Lucibello, from the beach · daily in August</span></span></label>
       <label class="task"><input type="checkbox" data-k="adolfo"><span><span class="tt">Da Adolfo lunch — book days ahead</span><br><span class="td">boat-access cove; their launch flies a red fish flag</span></span></label>
     </div>
@@ -353,13 +353,13 @@
       <div class="titem" data-t="22:30"><div class="tdot"></div>
         <div class="ttime">10:30 PM</div>
         <div class="activity-card">
-          <div class="activity-title">🍷 Belledonne, then L’Antiquario</div>
+          <div class="activity-title">🍷 Belledonne, then L’Antiquario <span class="status booked">booked ✅</span></div>
           <div class="activity-meta"><span class="meta-item">🚶 7 min from Salvo</span><span class="price-badge">wine €5–9 · cocktails €13–18</span></div>
           <div class="expand-icon">⌄</div>
           <div class="activity-details">
           <p class="activity-description"><b>Enoteca Belledonne</b> (Vico Belledonne a Chiaia 18, 4.5⭐ · 542) — thirty years the neighbourhood wine room, regulars at the bar, no scene. A glass or two here first.</p>
           <p class="activity-description">Then 3 minutes to <b>L’Antiquario</b> (Via Vannella Gaetani 2, 4.7⭐ · 1,418) — the Nightjar of Naples: hidden door, velvet and art-nouveau wallpaper, Alex Frezza’s cocktail room, #28 on Europe’s 50 Best Bars 2026. Open to 3am; best after 23:30 once the early rush thins.</p>
-          <div class="tip">💡 Reserve L’Antiquario for ~23:30 — Friday couples without a booking queue. Backup wine leg: Puteca (natural wine, Gradoni di Chiaia, to 3am).</div>
+          <div class="tip">✅ Booked — 23:30, 2 guests. Backup wine leg: Puteca (natural wine, Gradoni di Chiaia, to 3am).</div>
           <div class="action-buttons">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=L%27Antiquario+Via+Vannella+Gaetani+Naples">L’Antiquario</a>
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Enoteca+Belledonne+Vico+Belledonne+a+Chiaia+Naples">Belledonne</a>
@@ -934,7 +934,7 @@
   document.getElementById('clearTicks').addEventListener('click', function () {
     saved = {};
     try { localStorage.removeItem(KEY); } catch (e) {}
-    boxes.forEach(function (c) { c.checked = ['ferry1','pompeii','herc','pizza','sansevero'].indexOf(c.dataset.k) > -1; c.closest('.task').classList.toggle('done', c.checked); });
+    boxes.forEach(function (c) { c.checked = ['ferry1','pompeii','herc','pizza','sansevero','antiquario'].indexOf(c.dataset.k) > -1; c.closest('.task').classList.toggle('done', c.checked); });
   });
 
   // ---------- swipe between days ----------

@@ -194,9 +194,12 @@
   .daybar::-webkit-scrollbar { display: none; }
   .daybar button {
     flex: 1; min-width: 0; font-family: inherit; background: transparent; color: var(--text-dim);
-    border: 1px solid var(--border); border-radius: 12px; font-size: 0.875rem; font-weight: 600;
-    padding: 9px 4px; cursor: pointer; transition: all 0.3s ease; white-space: nowrap; text-align: center;
+    border: 1px solid var(--border); border-radius: 12px; font-weight: 600;
+    padding: 6px 2px; cursor: pointer; transition: all 0.3s ease; white-space: nowrap; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 1px; line-height: 1.2;
   }
+  .daybar .dw { font-size: 0.62rem; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.03em; }
+  .daybar .dd { font-size: 0.9rem; font-weight: 700; }
   .daybar button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
   .daybar button:active { transform: scale(0.95); }
   .day { display: none; }
@@ -269,7 +272,8 @@
       <label class="task"><input type="checkbox" data-k="ferry1" checked><span><span class="tt">Naples → Positano ferry, 10:00 Sun 9 Aug</span><br><span class="td">booked · Molo Beverello</span></span></label>
       <label class="task"><input type="checkbox" data-k="antiquario" checked><span><span class="tt">L’Antiquario — 23:30 Fri 7 Aug, 2 guests</span><br><span class="td">booked ✅ · Via Vannella Gaetani 2</span></span></label>
       <label class="task"><input type="checkbox" data-k="galli"><span><span class="tt">Li Galli sunset boat — once the couple-day is picked</span><br><span class="td">Lucibello, from the beach · daily in August</span></span></label>
-      <label class="task"><input type="checkbox" data-k="adolfo"><span><span class="tt">Da Adolfo lunch — book days ahead</span><br><span class="td">boat-access cove; their launch flies a red fish flag</span></span></label>
+      <label class="task"><input type="checkbox" data-k="adolfo" checked><span><span class="tt">Da Adolfo — 13:00 Mon 10 Aug</span><br><span class="td">booked ✅ · boat with the red fish flag from the pier</span></span></label>
+      <label class="task"><input type="checkbox" data-k="postables" checked><span><span class="tt">Positano tables — all booked ✅</span><br><span class="td">Il Pantaleone Sun 21:00 · Casa e Bottega Tue 09:00 · Next2 Tue 20:30 · Da Vincenzo Thu 12:15 · Il Ritrovo Fri 20:00 (arrange shuttle)</span></span></label>
     </div>
   </div>
 
@@ -289,11 +293,15 @@
 <!-- ==================== DAYS ==================== -->
 <main class="view" id="v-days">
   <div class="daybar" id="daybar">
-    <button data-d="d-fri" class="on">Fri 7</button>
-    <button data-d="d-sat">Sat 8</button>
-    <button data-d="d-sun">Sun 9</button>
-    <button data-d="d-week">The week</button>
-    <button data-d="d-ret">Sat 15</button>
+    <button data-d="d-fri" class="on"><span class="dw">Fri</span><span class="dd">7</span></button>
+    <button data-d="d-sat"><span class="dw">Sat</span><span class="dd">8</span></button>
+    <button data-d="d-sun"><span class="dw">Sun</span><span class="dd">9</span></button>
+    <button data-d="d-mon"><span class="dw">Mon</span><span class="dd">10</span></button>
+    <button data-d="d-tue"><span class="dw">Tue</span><span class="dd">11</span></button>
+    <button data-d="d-wed"><span class="dw">Wed</span><span class="dd">12</span></button>
+    <button data-d="d-thu"><span class="dw">Thu</span><span class="dd">13</span></button>
+    <button data-d="d-fri14"><span class="dw">Fri</span><span class="dd">14</span></button>
+    <button data-d="d-ret"><span class="dw">Sat</span><span class="dd">15</span></button>
   </div>
 
   <!-- FRIDAY -->
@@ -628,18 +636,93 @@
         </div>
       </div>
 
+    
+      <div class="titem highlight" data-t="21:00"><div class="tdot"></div>
+        <div class="ttime">9:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🍽️ Il Pantaleone <span class="status booked">booked ✅</span></div>
+          <div class="activity-meta"><span class="meta-item">📍 Positano</span><span class="price-badge">21:00</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
+          <p class="activity-description">First night dinner, the whole party, 21:00.</p>
+          <div class="tip">⚠️ <b>Check the address on this booking.</b> The only Ristorante Il Pantaleone findable on the coast is in <b>Ravello</b> — an hour's drive each way, improbable after a 13:00 beach lunch. If the confirmation says Ravello, this needs a rethink; if it's a villa/private arrangement under that name, ignore this.</div>
+          <div class="action-buttons">
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Il+Pantaleone+Positano">Directions</a>
+          </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- WEEK -->
-  <section class="day" id="d-week" data-date="2026-08-10">
-    <div class="kicker">9 – 15 August · Positano</div>
-    <h2 class="day-title">The Positano Week</h2>
-    <p class="day-subtitle">Family week — with one day reserved for the two of you.</p>
+  <section class="day" id="d-mon" data-date="2026-08-10">
+    <div class="kicker">Monday 10 August · Positano</div>
+    <h2 class="day-title">The Boat Lunch</h2>
+    <p class="day-subtitle">Beach morning, then the launch with the red fish flag.</p>
     <div class="timeline">
+      <div class="titem highlight" data-t="13:00"><div class="tdot"></div>
+        <div class="ttime">1:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🐟 Da Adolfo, Laurito <span class="status booked">booked ✅</span></div>
+          <div class="activity-meta"><span class="meta-item">⛵ boat from the pier</span><span class="price-badge">13:00</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
+          <p class="activity-description">The boat-access-only beach shack at Laurito cove — their launch flies a <b>red fish flag</b> from the main pier, roughly every half hour from mid-morning. Mozzarella grilled on lemon leaves, spaghetti with zucchini, white wine with peaches. Sandy feet obligatory.</p>
+          <div class="tip">💡 Take the boat out ~12:30 and claim a lounger before lunch, or stay on after — the return boats run all afternoon.</div>
+          <div class="action-buttons">
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Da+Adolfo+Positano">Directions</a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <section class="day" id="d-tue" data-date="2026-08-11">
+    <div class="kicker">Tuesday 11 August · Positano</div>
+    <h2 class="day-title">Booked at Both Ends</h2>
+    <p class="day-subtitle">Breakfast at nine, dinner at half eight — the middle is yours.</p>
+    <div class="timeline">
+      <div class="titem" data-t="09:00"><div class="tdot"></div>
+        <div class="ttime">9:00 AM</div>
+        <div class="activity-card">
+          <div class="activity-title">☕ Casa e Bottega <span class="status booked">booked ✅</span></div>
+          <div class="activity-meta"><span class="meta-item">📍 Viale Pasitea</span><span class="price-badge">09:00</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
+          <p class="activity-description">The design-shop café on Viale Pasitea — fresh juices, proper breakfast plates, ceramics you'll be tempted to carry home. The good slow start.</p>
+          <div class="action-buttons">
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Casa+e+Bottega+Positano">Directions</a>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="titem highlight" data-t="20:30"><div class="tdot"></div>
+        <div class="ttime">8:30 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">🍽️ Next2 <span class="status booked">booked ✅</span></div>
+          <div class="activity-meta"><span class="meta-item">📍 Viale Pasitea 242</span><span class="price-badge">20:30</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
+          <p class="activity-description">Modern coastal kitchen on a candlelit terrace — the contemporary counterpoint to the week's classics.</p>
+          <div class="action-buttons">
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Next2+Viale+Pasitea+Positano">Directions</a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="day" id="d-wed" data-date="2026-08-12">
+    <div class="kicker">Wednesday 12 August · Positano</div>
+    <h2 class="day-title">The Day That's Yours</h2>
+    <p class="day-subtitle">Nothing booked — the couple-day pieces live here, movable to any free day.</p>
+    <div class="timeline">
       <div class="titem" data-t="AM"><div class="tdot"></div>
-        <div class="ttime">YOUR DAY · MORNING</div>
+        <div class="ttime">AM</div>
         <div class="activity-card">
           <div class="activity-title">🏖️ Fornillo morning</div>
           <div class="activity-meta"><span class="meta-item">🚶 10-min cliff path west</span><span class="price-badge">loungers €15–25</span></div>
@@ -650,9 +733,8 @@
           </div>
         </div>
       </div>
-
       <div class="titem highlight" data-t="PM"><div class="tdot"></div>
-        <div class="ttime">YOUR DAY · AFTERNOON</div>
+        <div class="ttime">PM</div>
         <div class="activity-card">
           <div class="activity-title">🏛️ The villa under the church</div>
           <div class="activity-meta"><span class="meta-item">📍 MAR Positano</span><span class="meta-item">⏱️ ~30 min guided</span><span class="meta-item">🕘 open to 21:00</span></div>
@@ -666,9 +748,8 @@
           </div>
         </div>
       </div>
-
       <div class="titem highlight" data-t="18:00"><div class="tdot"></div>
-        <div class="ttime">YOUR DAY · 6:00 PM</div>
+        <div class="ttime">6:00 PM</div>
         <div class="activity-card">
           <div class="activity-title">⛵ Sunset among the Sirens <span class="status decide">book in town</span></div>
           <div class="activity-meta"><span class="meta-item">📍 Li Galli · 15–20 min out</span><span class="meta-item">🌅 sunset ~20:00</span><span class="price-badge">from ~€60–80 pp</span></div>
@@ -682,22 +763,64 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="titem" data-t="wk"><div class="tdot"></div>
-        <div class="ttime">WITH THE FAMILY · ANY DAY</div>
+  <section class="day" id="d-thu" data-date="2026-08-13">
+    <div class="kicker">Thursday 13 August · Positano</div>
+    <h2 class="day-title">Long Lunch Day</h2>
+    <p class="day-subtitle">Table at quarter past twelve; the afternoon takes care of itself.</p>
+    <div class="timeline">
+      <div class="titem highlight" data-t="12:15"><div class="tdot"></div>
+        <div class="ttime">12:15 PM</div>
         <div class="activity-card">
-          <div class="activity-title">🍋 Week ideas</div>
+          <div class="activity-title">🍝 Da Vincenzo <span class="status booked">booked ✅</span></div>
+          <div class="activity-meta"><span class="meta-item">📍 Viale Pasitea 172–178</span><span class="price-badge">12:15</span></div>
           <div class="expand-icon">⌄</div>
           <div class="activity-details">
-          <p class="activity-description"><b>Path of the Gods</b> — Bomerano → Nocelle at 8:00 before the heat; lemon granita in Nocelle, 1,700 steps home.<br><b>Amalfi + Ravello</b> by ferry — the cathedral, then the bus up to Villa Rufolo's terraces.<br><b>Capri</b> — better by small private boat than the packed ferry-and-funicular circuit in August.<br><b>Da Adolfo</b> — boat-access beach shack at Laurito; mozzarella grilled on lemon leaves; book days ahead.</p>
+          <p class="activity-description">Family-run since 1958 — the Positano classic for seafood pasta done properly, without the beach-club mark-up. An early table beats the crowd to the terrace.</p>
           <div class="action-buttons">
-            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Da+Adolfo+Positano">Da Adolfo</a>
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Da+Vincenzo+Positano">Directions</a>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="titem" data-t="ideas"><div class="tdot"></div>
+        <div class="ttime">ANY DAY</div>
+        <div class="activity-card">
+          <div class="activity-title">🍋 Still unclaimed this week</div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
+          <p class="activity-description"><b>Path of the Gods</b> — Bomerano → Nocelle at 8:00 before the heat; lemon granita in Nocelle, 1,700 steps home.<br><b>Amalfi + Ravello</b> by ferry — the cathedral, then the bus up to Villa Rufolo's terraces.<br><b>Capri</b> — better by small private boat than the packed ferry-and-funicular circuit in August.</p>
+          <div class="action-buttons">
             <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sentiero+degli+Dei+Bomerano">Path of the Gods</a>
           </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
+  <section class="day" id="d-fri14" data-date="2026-08-14">
+    <div class="kicker">Friday 14 August · Positano</div>
+    <h2 class="day-title">Last Full Day</h2>
+    <p class="day-subtitle">Dinner up the mountain to close the week.</p>
+    <div class="timeline">
+      <div class="titem highlight" data-t="20:00"><div class="tdot"></div>
+        <div class="ttime">8:00 PM</div>
+        <div class="activity-card">
+          <div class="activity-title">⛰️ Il Ritrovo, Montepertuso <span class="status booked">booked ✅</span></div>
+          <div class="activity-meta"><span class="meta-item">📍 Montepertuso, above Positano</span><span class="price-badge">20:00</span></div>
+          <div class="expand-icon">⌄</div>
+          <div class="activity-details">
+          <p class="activity-description">Up in the mountain village 350m above town — mountain cooking rather than beach cooking, and the whole coast lit up below. <b>They run a free shuttle from Positano: call ahead to arrange pickup</b>, or it's a taxi up the hairpins.</p>
+          <div class="tip">💡 Last-night packing note: bags need to be porter-ready by ~11:45 tomorrow, so pack before dinner, not after the wine.</div>
+          <div class="action-buttons">
+            <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Il+Ritrovo+Montepertuso+Positano">Directions</a>
+          </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -949,13 +1072,13 @@
   document.getElementById('clearTicks').addEventListener('click', function () {
     saved = {};
     try { localStorage.removeItem(KEY); } catch (e) {}
-    boxes.forEach(function (c) { c.checked = ['ferry1','pompeii','herc','pizza','sansevero','antiquario'].indexOf(c.dataset.k) > -1; c.closest('.task').classList.toggle('done', c.checked); });
+    boxes.forEach(function (c) { c.checked = ['ferry1','pompeii','herc','pizza','sansevero','antiquario','adolfo','postables'].indexOf(c.dataset.k) > -1; c.closest('.task').classList.toggle('done', c.checked); });
   });
 
   // ---------- swipe between days ----------
   (function () {
     var x0 = null, y0 = null;
-    var order = ['d-fri', 'd-sat', 'd-sun', 'd-week', 'd-ret'];
+    var order = ['d-fri', 'd-sat', 'd-sun', 'd-mon', 'd-tue', 'd-wed', 'd-thu', 'd-fri14', 'd-ret'];
     document.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
     document.addEventListener('touchend', function (e) {
       if (x0 === null) return;

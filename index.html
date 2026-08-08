@@ -232,6 +232,28 @@
   .legend .k-open { background: var(--accent); }
   .legend .k-cond { background: var(--warning); }
   .legend .k-closed { background: var(--text-muted); }
+  .seen-count { font-size: 0.78rem; color: var(--text-muted); margin: -10px 0 16px; }
+  .seen-count b { color: var(--accent); }
+  .essential-card.activity-card > .seen {
+    position: absolute; top: 12px; right: 40px; z-index: 3;
+    width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+  .essential-card.activity-card > .seen input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+  .essential-card.activity-card > .seen span {
+    width: 18px; height: 18px; border: 1.5px solid var(--text-muted); border-radius: 5px;
+    display: block; transition: all 0.2s ease;
+  }
+  .essential-card.activity-card > .seen input:checked + span {
+    background: var(--success); border-color: var(--success);
+  }
+  .essential-card.activity-card > .seen input:checked + span::after {
+    content: ''; display: block; width: 5px; height: 9px; margin: 1px 0 0 5.5px;
+    border: solid #000; border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+  .essential-card.activity-card > .seen input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .essential-card.activity-card.ticked h3 { color: var(--text-dim); }
+  .essential-card.activity-card.ticked::before { opacity: 0.35; }
+  .essential-card.activity-card h3 { padding-right: 76px; }
 
   /* ============ checklist ============ */
   .task { display: flex; gap: 12px; align-items: flex-start; padding: 12px 2px; border-bottom: 1px solid var(--border); cursor: pointer; }
@@ -978,8 +1000,10 @@
     <span><i class="k-cond"></i>check on the day</span>
     <span><i class="k-closed"></i>can't enter</span>
   </div>
+  <div class="seen-count" id="seenCount"></div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="porta-marina-to-the-forum"><span></span></label>
     <h3>Porta Marina to the Forum</h3>
     <div class="where">Entrance orientation · read before you set off</div>
     <div class="expand-icon">⌄</div>
@@ -991,6 +1015,7 @@
   </div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="the-forum"><span></span></label>
     <h3>The Forum</h3>
     <div class="where">Civic and religious core · 10–15 min</div>
     <div class="expand-icon">⌄</div>
@@ -1001,6 +1026,7 @@
   </div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="stabian-baths"><span></span></label>
     <h3>Stabian Baths</h3>
     <div class="where">Via Stabiana / Via dell'Abbondanza junction · 15 min</div>
     <div class="expand-icon">⌄</div>
@@ -1011,6 +1037,7 @@
   </div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="lupanar"><span></span></label>
     <h3>Lupanar</h3>
     <div class="where">Off Vicolo del Lupanare · 10 min including the queue</div>
     <div class="expand-icon">⌄</div>
@@ -1021,6 +1048,7 @@
   </div>
 
   <div class="essential-card activity-card cond">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="house-of-the-faun"><span></span></label>
     <h3>House of the Faun</h3>
     <div class="where">Via della Fortuna, en route to the Vettii · 5–10 min</div>
     <div class="expand-icon">⌄</div>
@@ -1031,6 +1059,7 @@
   </div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="house-of-the-vettii"><span></span></label>
     <h3>House of the Vettii</h3>
     <div class="where">Vicolo dei Vettii · 15–20 min</div>
     <div class="expand-icon">⌄</div>
@@ -1042,6 +1071,7 @@
   </div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="via-dell-abbondanza"><span></span></label>
     <h3>Via dell'Abbondanza</h3>
     <div class="where">The high street, Forum to the amphitheatre end · 20–30 min walking</div>
     <div class="expand-icon">⌄</div>
@@ -1052,6 +1082,7 @@
   </div>
 
   <div class="essential-card activity-card cond">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="garden-of-the-fugitives"><span></span></label>
     <h3>Garden of the Fugitives</h3>
     <div class="where">Via dell'Abbondanza, near Porta Nocera · 5–10 min</div>
     <div class="expand-icon">⌄</div>
@@ -1063,6 +1094,7 @@
   </div>
 
   <div class="essential-card activity-card cond">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="amphitheatre"><span></span></label>
     <h3>Amphitheatre</h3>
     <div class="where">SE corner of the site · 15–20 min, if your legs allow</div>
     <div class="expand-icon">⌄</div>
@@ -1073,6 +1105,7 @@
   </div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="villa-of-the-mysteries"><span></span></label>
     <h3>Villa of the Mysteries</h3>
     <div class="where">Outside the walls, NW, by the Porta Ercolano/station exit · 20–25 min</div>
     <div class="expand-icon">⌄</div>
@@ -1088,6 +1121,7 @@
   <p class="day-subtitle">A quarter the size, twice the preservation. Two hours does it properly.</p>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="arriving-at-herculaneum"><span></span></label>
     <h3>Arriving at Herculaneum</h3>
     <div class="where">Entrance via Corso Resina, above the excavation · orientation</div>
     <div class="expand-icon">⌄</div>
@@ -1098,6 +1132,7 @@
   </div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="central-baths"><span></span></label>
     <h3>Central Baths</h3>
     <div class="where">Cardo IV/V · 10 min</div>
     <div class="expand-icon">⌄</div>
@@ -1108,6 +1143,7 @@
   </div>
 
   <div class="essential-card activity-card cond">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="samnite-house-and-the-trellis-hous"><span></span></label>
     <h3>Samnite House and the Trellis House</h3>
     <div class="where">Cardo III/IV · 10 min combined</div>
     <div class="expand-icon">⌄</div>
@@ -1118,6 +1154,7 @@
   </div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="house-of-neptune-and-amphitrite"><span></span></label>
     <h3>House of Neptune and Amphitrite</h3>
     <div class="where">Cardo IV · 10 min</div>
     <div class="expand-icon">⌄</div>
@@ -1128,6 +1165,7 @@
   </div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="college-of-the-augustales"><span></span></label>
     <h3>College of the Augustales</h3>
     <div class="where">Decumanus Maximus · 10 min</div>
     <div class="expand-icon">⌄</div>
@@ -1138,6 +1176,7 @@
   </div>
 
   <div class="essential-card activity-card">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="the-boathouses"><span></span></label>
     <h3>The boathouses</h3>
     <div class="where">Old shoreline, seaward edge of the site · 10–15 min</div>
     <div class="expand-icon">⌄</div>
@@ -1148,6 +1187,7 @@
   </div>
 
   <div class="essential-card activity-card closed">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="villa-of-the-papyri-and-what-s-sti"><span></span></label>
     <h3>Villa of the Papyri — and what's still under Ercolano</h3>
     <div class="where">NW edge of the site, along the old shoreline · viewpoint only, 5–10 min</div>
     <div class="expand-icon">⌄</div>
@@ -1159,6 +1199,7 @@
   </div>
 
   <div class="essential-card activity-card cond">
+    <label class="seen" onclick="event.stopPropagation()"><input type="checkbox" data-s="if-you-ve-got-ten-minutes-spare"><span></span></label>
     <h3>If you've got ten minutes spare</h3>
     <div class="where">Insula IV/V area · optional</div>
     <div class="expand-icon">⌄</div>
@@ -1266,6 +1307,34 @@
         document.getElementById('wxPd').textContent = (codes[arr[1].current.weather_code] || '') + ' · high ' + Math.round(arr[1].daily.temperature_2m_max[0]) + '°';
       })
       .catch(function () {});
+  })();
+
+  // ---------- ruins "seen" ticks ----------
+  (function () {
+    var SKEY = 'italy26-seen';
+    var seen = {};
+    try { seen = JSON.parse(localStorage.getItem(SKEY) || '{}'); } catch (e) {}
+    var boxes = document.querySelectorAll('.seen input');
+    var counter = document.getElementById('seenCount');
+    function paint() {
+      var done = 0;
+      boxes.forEach(function (b) {
+        var card = b.closest('.essential-card');
+        card.classList.toggle('ticked', b.checked);
+        if (b.checked) done++;
+      });
+      if (counter) counter.innerHTML = '<b>' + done + '</b> of ' + boxes.length + ' seen';
+    }
+    boxes.forEach(function (b) {
+      if (seen[b.dataset.s]) b.checked = true;
+      b.addEventListener('change', function (e) {
+        e.stopPropagation();
+        seen[b.dataset.s] = b.checked;
+        try { localStorage.setItem(SKEY, JSON.stringify(seen)); } catch (err) {}
+        paint();
+      });
+    });
+    paint();
   })();
 
   // ---------- persistent checklist ----------

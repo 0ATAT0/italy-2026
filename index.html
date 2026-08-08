@@ -213,6 +213,10 @@
   }
   .essential-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent); }
   .essential-card h3 { font-size: 1.05rem; margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .essential-card.activity-card { cursor: pointer; padding-bottom: 14px; }
+  .essential-card.activity-card h3 { padding-right: 26px; }
+  .essential-card.activity-card .where { margin-bottom: 0; }
+  .essential-card.activity-card.expanded .where { margin-bottom: 8px; }
   .essential-card h3 .rate { font-size: 0.82rem; color: var(--accent); font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .essential-card .where { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
   .essential-card p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.6; }
@@ -960,138 +964,192 @@
   <h2 class="day-title">Pompeii <span class="e">🏛️</span></h2>
   <p class="day-subtitle">Porta Marina in, Villa of the Mysteries out. Check the board just inside the gate — the closure rota moves weekly.</p>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>Porta Marina to the Forum</h3>
     <div class="where">Entrance orientation · read before you set off</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>Porta Marina is the old sea gate — the ramp merchants once climbed when Pompeii had a working harbour; the coast has since retreated. It funnels straight into the Forum, the site's low point and hub, which is also why <b>Villa of the Mysteries works as a last stop</b>: it sits by the Porta Ercolano exit toward the Circumvesuviana, not as a detour dressed up as one.</p>
     <p>Individual buildings inside the site keep their own last-entry times, usually around 18:00 — irrelevant to your window, but don't assume anything stays open to the site's main closing time.</p>
     <p>At 33°C with no shade, the Forum is the worst place to linger at midday. Treat it as a transit point on the way in.</p>
+    </div>
   </div>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>The Forum</h3>
     <div class="where">Civic and religious core · 10–15 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>Skip the temple-by-temple identification — the boards cover it and none of it individually rewards standing in full sun. What's worth the time is the sense of scale: a working provincial civic space, built in the shadow of the Greek cities to the south (Naples, Paestum) that had been doing this for centuries longer.</p>
     <p><b>The exedra at the south end</b> gives the best view back down the whole space with Vesuvius framed behind it — the photo everyone takes, because it's genuinely the best vantage point, not out of obligation.</p>
+    </div>
   </div>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>Stabian Baths</h3>
     <div class="where">Via Stabiana / Via dell'Abbondanza junction · 15 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>The oldest baths on site — a Samnite core from the 2nd century BC, later Romanised, which makes them a good physical argument for how much "Roman" bathing culture was inherited rather than invented.</p>
     <p><b>The stuccoed, coffered ceiling of the men's changing room</b> is the best-preserved decorative ceiling on site outside the Vettii. The room sequence here — changing room, cold, warm, hot — is the template every other bath building on either site is a variant of, so seeing it clearly here first makes the smaller ones easier to read at a glance later.</p>
+    </div>
   </div>
 
-  <div class="essential-card plain">
+  <div class="essential-card plain activity-card">
     <h3>Lupanar</h3>
     <div class="where">Off Vicolo del Lupanare · 10 min including the queue</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>The most-visited single room on the site, so the queue is the real obstacle, not the content. Ten cells, stone beds, erotic frescoes over each doorway that guides love to call a menu — more likely generic scene-setting than a price list.</p>
     <p><b>The graffiti is the better evidence</b>: over 120 inscriptions, Latin and Greek, insults and boasts, and considerably more human than the frescoes above them.</p>
+    </div>
   </div>
 
-  <div class="essential-card plain">
+  <div class="essential-card plain activity-card">
     <h3>House of the Faun</h3>
     <div class="where">Via della Fortuna, en route to the Vettii · 5–10 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>The largest private house in Pompeii, and the one that held the Alexander Mosaic until it was cut out of the floor in 1843 and shipped to Naples, where it now anchors a room at MANN you didn't have time for today. <b>What's underfoot now is a replica</b> — competent, not moving.</p>
     <p>The interest is in doing the arithmetic on the spot: roughly 1.5 million tesserae across some 5.5 by 3 metres, depicting Alexander routing Darius at Issus, commissioned for a Pompeian household that wanted a Hellenistic Macedonian battle scene in its dining room. That's the Greek pull on this coast, in one floor.</p>
+    </div>
   </div>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>House of the Vettii</h3>
     <div class="where">Vicolo dei Vettii · 15–20 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>Reopened in 2023 after twenty years of restoration, and the best-preserved painted interior on either site — the conservation work has left the frescoes looking freshly finished, which they more or less are.</p>
     <p>Owned by two freedmen brothers, and that's the point: new-money display architecture, unapologetic about it, built by men one generation out of slavery buying the biggest mythological cycles money could commission. <b>The Priapus fresco in the entrance vestibule</b> — fertility weighed on a scale against a bag of coins — sets the tone; everything after it is the same message in more expensive form.</p>
     <p>Some rooms may be roped to a walkway rather than fully open. That's normal here, not a sign anything's wrong.</p>
+    </div>
   </div>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>Via dell'Abbondanza</h3>
     <div class="where">The high street, Forum to the amphitheatre end · 20–30 min walking</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>Shopfronts, fast-food counters (thermopolia) with the storage-jar holes still in the counters, and the deepest cart ruts on site — worth a glance underfoot, not just at eye level.</p>
     <p>This is also your closest approach to <b>Regio IX</b>, the block immediately north where the Park has been digging since 2023: a bakery where enslaved workers and blindfolded donkeys were made to walk grooves into the floor, and — unveiled only last month — a banqueting-hall ceiling fresco of Dionysus and Ariadne, plus a small shrine with rare blue-painted walls. None of it is on your route today; access is a separate, pre-booked guided visit capped at a handful of people a day, not a walk-in extension of this street. Worth knowing it's there, immediately to your left, even unreachable.</p>
+    </div>
   </div>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>Garden of the Fugitives</h3>
     <div class="where">Via dell'Abbondanza, near Porta Nocera · 5–10 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>Thirteen body casts in a row, in an orchard that was under cultivation when the eruption hit — grouped as they died, not staged. The most direct confrontation with the human event that the rest of the site keeps at an architectural remove.</p>
     <p><b>Look at the postures</b>, not just the fact of the casts. The technique — plaster poured into voids left by decomposed bodies in the ash — is now sixty years old and imperfect, but the row format here does more than any single isolated cast elsewhere.</p>
     <p>This building sits on a conservation rota and does close periodically. If it's shut, that's why, not an error in this plan.</p>
+    </div>
   </div>
 
-  <div class="essential-card plain">
+  <div class="essential-card plain activity-card">
     <h3>Amphitheatre</h3>
     <div class="where">SE corner of the site · 15–20 min, if your legs allow</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>The oldest surviving stone amphitheatre in the Roman world, predating the Colosseum by roughly a century and a half, built by the same two magistrates who funded the Odeon shortly after Pompeii became a Roman colony.</p>
     <p>Since mid-June the approach has been restricted to the <b>southern entrance only</b> — don't waste time circling for the old north gate. Unlike the Colosseum, there's no vaulted substructure: it's built into a packed-earth bank against a retaining wall, which you can largely take in from outside if 15,000 steps have made the climb a hard sell.</p>
+    </div>
   </div>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>Villa of the Mysteries</h3>
     <div class="where">Outside the walls, NW, by the Porta Ercolano/station exit · 20–25 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>Fully reopened after a restoration that stripped a 1930s protective wax layer off the frescoes and cleaned them properly — they read clearer now than in most photographs taken before the 2010s.</p>
     <p><b>The frieze in the triclinium</b>: life-size figures against Pompeian red, generally read as a Dionysiac initiation cycle. What exactly is being initiated — marriage, cult mystery, both — is still argued and probably always will be; nobody has the text that would settle it, only the images.</p>
     <p>About 10% of the villa, occupied by a neighbouring farmhouse, may start coming free for excavation this year if funding lands. Not yet visible, so don't look for it.</p>
+    </div>
   </div>
 
   <div class="sechd" style="margin-top:30px"><span class="kicker">14:30 · one stop back down the line</span></div>
   <h2 class="day-title">Herculaneum <span class="e">🌊</span></h2>
   <p class="day-subtitle">A quarter the size, twice the preservation. Two hours does it properly.</p>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>Arriving at Herculaneum</h3>
     <div class="where">Entrance via Corso Resina, above the excavation · orientation</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>You walk in above street level and look down into the site, which sits roughly 20 metres below the modern town of Ercolano. It was buried by a pyroclastic flow rather than the pumice fall that hit Pompeii, which is why it preserved wood, cloth and food rather than just outlines in ash.</p>
     <p>The site is a fraction of Pompeii's size and far more walkable — dense, close-packed housing on a compact grid, most of it seeable in two hours without the forced marches Pompeii demands. <b>The old shoreline</b>, now the site's seaward edge, is where the boathouses sit: beachfront property in 79 AD, not the inland ruin it looks like today.</p>
+    </div>
   </div>
 
-  <div class="essential-card plain">
+  <div class="essential-card plain activity-card">
     <h3>Central Baths</h3>
     <div class="where">Cardo IV/V · 10 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>Male and female sections, much of the stucco ceiling relief intact — a useful comparison against the Stabian Baths this morning: smaller, more domestic, built for a town of a few thousand rather than Pompeii's tens of thousands.</p>
     <p><b>The mosaic floor and vaulted ceiling of the men's frigidarium</b> are worth the extra minute; otherwise this confirms the Pompeii template rather than teaching a new one.</p>
+    </div>
   </div>
 
-  <div class="essential-card plain">
+  <div class="essential-card plain activity-card">
     <h3>Samnite House and the Trellis House</h3>
     <div class="where">Cardo III/IV · 10 min combined</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>Two contrasts worth seeing back to back. The Samnite House is 2nd-century-BC old money — an atrium with a first-floor loggia and faux-marble wall painting, built before Rome had fully absorbed this coast. The Trellis House, close by, is the opposite end of the social scale: a cheap multi-family rental block in opus craticium, timber-framed wattle-and-daub — the closest either site comes to showing how tenants, not villa-owners, actually lived.</p>
     <p><b>The surviving timber frame itself</b> is the point at the Trellis House — one of very few places anywhere this construction method survives above floor level, because everywhere else it rotted or burned.</p>
+    </div>
   </div>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>House of Neptune and Amphitrite</h3>
     <div class="where">Cardo IV · 10 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>The glass-and-mosaic wall panel in the nymphaeum is the best-preserved decorative mosaic on either site — colour saturation Pompeii doesn't have, because Herculaneum's burial sealed things airtight rather than leaving them under open ash for centuries of weathering.</p>
     <p><b>The adjoining shop</b>, its wooden shelving and roof structure still intact, is easy to walk past and shouldn't be — carbonised wood surviving in situ is rarer than the mosaics next door.</p>
+    </div>
   </div>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>College of the Augustales</h3>
     <div class="where">Decumanus Maximus · 10 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>The meeting hall of a priesthood built specifically for freedmen, who couldn't hold ordinary civic office because they'd been enslaved — the imperial cult of Augustus gave them a parallel status ladder instead.</p>
     <p><b>The black-ground frescoes of Hercules</b> — his apotheosis, and his discovery of Telephus in Arcadia — are the reason to stop: rare surviving large-scale mythological painting on a dark ground rather than the usual Pompeian red or white. The choice of subject wasn't incidental. Hercules founding Herculaneum was the town's own foundation myth, and a hall built by freedmen chose it deliberately.</p>
+    </div>
   </div>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>The boathouses</h3>
     <div class="where">Old shoreline, seaward edge of the site · 10–15 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>Around 300 people died here, in a row of arched boat-storage chambers on what was the beach in 79 AD, waiting for a rescue by sea some of them had genuine reason to expect. Pliny the Younger's letter to Tacitus (6.16) has his uncle's fleet setting out from Misenum across the bay — heading first toward this shore, near Herculaneum, before ash-fall, a receding sea and an unfavourable wind forced him south to Stabiae instead, where he died. The people in these vaults were, in effect, waiting for boats that turned away.</p>
     <p>The skeletons are shown largely as found, in the postures of the moment. Many now on display are casts taken from the originals, the bones themselves held separately for study.</p>
+    </div>
   </div>
 
-  <div class="essential-card">
+  <div class="essential-card activity-card">
     <h3>Villa of the Papyri — and what's still under Ercolano</h3>
     <div class="where">NW edge of the site, along the old shoreline · viewpoint only, 5–10 min</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>Closed to visitors — under work on drainage, slope stabilisation and access, no reopening date announced. You can't go in. What matters is where it is: a few hundred metres along the ancient coast from the houses you've just walked through, its atrium sitting roughly 20 metres beneath the streets of modern Ercolano directly above you, including the old town hall. Only a fraction has ever been excavated, by tunnelling in the 18th century and again briefly in the 1990s and 2000s. The rest is still down there — freeing it means dealing with the modern town sitting on top, which is why it hasn't happened.</p>
     <p><b>This is the villa that held the only intact library to survive from antiquity</b> — around 1,800 carbonised scrolls, unreadable for two centuries because unrolling them destroyed them. The Vesuvius Challenge has spent the last few years changing that, using CT scanning and machine learning to read the scrolls virtually, without opening them. In June this year they published the first scroll read essentially start to finish, and identified another as Philodemus's On Gods, Book 8 — proof the work was a multi-book treatise, previously unknown at that length.</p>
     <p>Philodemus was the Epicurean philosopher this villa's owner — probably Lucius Calpurnius Piso Caesoninus, Julius Caesar's father-in-law — patronised directly. What's being read now is very likely his own working library. Scholars think what's been recovered so far is only the Greek half of the collection. A Roman library, if the villa had one as expected, would be in the unexcavated portion — under the ground somewhere near where you're standing.</p>
+    </div>
   </div>
 
-  <div class="essential-card plain">
+  <div class="essential-card plain activity-card">
     <h3>If you've got ten minutes spare</h3>
     <div class="where">Insula IV/V area · optional</div>
+    <div class="expand-icon">⌄</div>
+    <div class="activity-details">
     <p>The Park has been quietly reopening restored houses through 2025–26 after decades shut: the House of the Tuscan Colonnade and House of the Wooden Sacellum came back last year, the House of the Charred Furniture reopened in July, and the Calcidico reopened after twenty years. None of this is essential against your clock — but if a gate is open that a guidebook says should be shut, that's why. The site is more fluid right now than its reputation for bureaucratic stasis suggests.</p>
+    </div>
   </div>
 </main>
 
